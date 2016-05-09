@@ -510,9 +510,9 @@ $(document).ready(function(){
                       <% if revw.eval_grade == 3 %> 
                         <span class="label-tag label-danger">학점느님</span>
                       <% elsif revw.eval_grade == 2 %> 
-                        <span class="label-tag label-danger">B0마왕</span>
+                        <span class="label-tag label-danger">상대평가</span>
                       <% else %> 
-                        <span class="label-tag label-danger">F폭격기</span>
+                        <span class="label-tag label-danger">C뿌리기</span>
                       <% end %>
                     </span> &nbsp;
                     <span class="label-tag label-g2">
@@ -581,10 +581,10 @@ $(document).ready(function(){
                 <div class="input-star2"></div>
                 <div class="btn-group" data-toggle="buttons">
                   <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary active">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> F폭격기
+                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> C뿌리기
                   </label>
                   <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> B0마왕
+                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> 상대평가
                   </label>
                   <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
                     <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
@@ -653,7 +653,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > F폭격기
+                    > C뿌리기
                   </label>
                   <label  class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -668,7 +668,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > B0마왕
+                    > 상대평가
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -810,10 +810,10 @@ $(document).ready(function(){
                 <div class="input-star2"></div>
                 <div class="btn-group" data-toggle="buttons">
                   <label class="label-11 tagger1 btn btn2 btn-primary active">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> F폭격기
+                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> C뿌리기
                   </label>
                   <label  class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> B0마왕
+                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> 상대평가
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary">
                     <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
@@ -883,7 +883,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > F폭격기
+                    > C뿌리기
                   </label>
                   <label  class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -898,7 +898,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > B0마왕
+                    > 상대평가
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
