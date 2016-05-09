@@ -1,6 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+          api_key: 'key-d518ad4e712298f7a4a18feb4e165538',
+          domain: 'sandboxe6eceddea3374cadbf9c4336feeb81c2.mailgun.org'
+  }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
