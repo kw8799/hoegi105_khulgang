@@ -5,6 +5,8 @@ Rails.application.configure do
           api_key: 'key-d518ad4e712298f7a4a18feb4e165538',
           domain: 'sandboxe6eceddea3374cadbf9c4336feeb81c2.mailgun.org'
   }
+  
+  config.action_mailer.default_url_options = { host: 'khulgang.xyz', port: 80 }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
