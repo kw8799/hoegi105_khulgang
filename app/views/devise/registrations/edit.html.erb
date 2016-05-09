@@ -1,0 +1,32 @@
+<div class = "page-signup" align="center">
+  <div class= "innerpage">
+    <div>
+    <h1>정보수정</h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+      
+      <div class="reg-row1">
+      </div>
+      <div class="input-group input-group-lg">
+        <%= f.password_field :current_password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "기존의 비밀번호" %>
+      </div>
+      
+      <div class="input-group input-group-lg">
+        <%= f.password_field :password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꿀 비밀번호" %>
+      </div>
+    
+      <div class="input-group input-group-lg">
+        <%= f.password_field :password_confirmation, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꾼 비밀번호 확인" %>
+      </div>
+      
+      <div class="actions">
+        <%= f.submit "수정하기", id: "reg-form-button", class: "btn btn-lg btn-default" %>
+      </div>
+    <% end %>
+
+    <!--<%= button_to " ", registration_path(resource_name), data: { confirm: "진짜요?ㅠ" }, method: :delete %></p>-->
+
+  </div>
+</div>

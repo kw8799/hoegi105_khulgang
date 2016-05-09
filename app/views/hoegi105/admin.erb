@@ -1,0 +1,97 @@
+<h1>관리자페이지</h1>
+<form action='/hoegi105/admin_process' method='post'>
+<div>
+    <div class="admin-row">
+        <label>강의명</label><input type="text" name="lecturetitle">
+    </div>
+    <div class="admin-row">
+        <label>교수명</label><input type="text" name="professorname">
+    </div>
+    <div class="admin-row">
+        <label>과정</label>
+            <input type="radio" name="typeoflecture" value="전공기초" required="required">전공기초
+            <input type="radio" name="typeoflecture" value="전공필수" required="required">전공필수
+            <input type="radio" name="typeoflecture" value="전공선택" required="required">전공선택
+    </div>
+    <div class="admin-row">
+        <label>세부과정</label>
+            <input type="radio" name="typeofhospi" value="" required="required">해당사항 없음
+            <input type="radio" name="typeofhospi" value="공통경영" required="required">공통경영
+            <input type="radio" name="typeofhospi" value="학과경영" required="required">학과경영
+            <input type="radio" name="typeofhospi" value="학과선택" required="required">학과선택
+    </div>
+    <div class="admin-row">
+        <label>학과</label>
+            <input type="checkbox" name="lecturemajor[]" value="001">관광학과<br>
+            <input type="checkbox" name="lecturemajor[]" value="002">문화관광콘텐츠학과<br>
+            <input type="checkbox" name="lecturemajor[]" value="003">외식경영학과<br>
+            <input type="checkbox" name="lecturemajor[]" value="004">조리서비스경영학과<br>
+            <input type="checkbox" name="lecturemajor[]" value="005">컨벤션경영학과<br>
+            <input type="checkbox" name="lecturemajor[]" value="006">호텔경영학과<br>
+    </div>
+    <div class= "admin-row">
+         <button>등록</button>
+    </div>
+</div>
+</form>
+
+<h1>유저정보</h1>
+<table border="2">
+    <tr>
+        <th>id값</th><th>이메일</th><th>로그인 횟수</th><th>최근 접속 ip</th><th>최근 로그인</th><th>계정생성일</th><th>계정수정일</th><th>학과</th><th>학번</th>
+    </tr>
+    <% User.all.each do |user| %>
+        <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.sign_in_count %></td>
+            <td><%= user.last_sign_in_ip %></td>
+            <td><%= user.last_sign_in_at %></td>
+            <td><%= user.created_at %></td>
+            <td><%= user.updated_at %></td>
+            <td><%= user.user_major %></td>
+            <td><%= user.student_num %></td>
+        </tr>
+    <% end %>
+</table>
+
+<h1>강의목록</h1>
+<table border="2">
+    <tr>
+        <th>id값</th><th>강의명</th><th>교수명</th><th>학과</th><th>이수구분</th><th>강의생성일</th><th>계정수정일</th><th>수정</th><th>삭제</th>
+    </tr>
+    <% Classofhot.all.each do |lecture| %>
+        <tr>
+            <td><%= lecture.id %></td>
+            <td><%= lecture.lecture_title %></td>
+            <td><%= lecture.professor_name %></td>
+            <td><%= lecture.lecture_major %></td>
+            <td><%= lecture.typeof_lecture %></td>
+            <td><%= lecture.created_at %></td>
+            <td><%= lecture.updated_at %></td>
+            <td><a href="/hoegi105/admin_update/<%= lecture.id %>">수정</a></td>
+            <td><a href="/hoegi105/admin_delete/<%= lecture.id %>">삭제</a></td>
+        </tr>
+    <% end %>
+</table>
+
+<h1>리뷰등록현황</h1>
+<table border="2">
+    <tr>
+        <th>id값</th><th>작성계정</th><th>프로필</th><th>강좌id</th><th>강좌명</th><th>내용</th><th>공감</th><th>비공감</th><th>작성일</th><th>수정일</th>
+    </tr>
+    <% Review.all.each do |revw| %>
+        <tr>
+            <td><%= revw.id %></td>
+            <td><%= revw.review_writer %></td>
+            <td><%= revw.picture %></td>
+            <td><%= revw.classofhot_id %></td>
+            <td><%= Classofhot.find_by(:id => revw.classofhot_id).lecture_title %></td>
+            <td><%= truncate(revw.review_content, :length => 30) %></td>
+            <td><%= revw._like %></td>
+            <td><%= revw._dislike %></td>
+            <td><%= revw.created_at %></td>
+            <td><%= revw.updated_at %></td>
+        </tr>
+    <% end %>
+</table>

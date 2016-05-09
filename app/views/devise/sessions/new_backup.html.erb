@@ -1,0 +1,30 @@
+<div class="page" align="center">
+	<div class="bg"></div>
+	<div class="upperbg" align="center">
+		<div id="logo"></div>
+		
+		<h1 id="title">강의평가</h1></h1>
+		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+		<div id="logodiv" align="center">
+			<div class="input-group input-group-lg field">
+				<span></span>
+				<!--ID input-->
+				<br />
+	    		<%= f.email_field :email, autofocus: true, type: "text", id: "form-identification", class: "form-control", placeholder: "아이디"%>
+				
+			</div>
+			<div class="input-group input-group-lg field">
+				<!--비번 input-->
+	    		<%= f.password_field :password, autocomplete: "off", type: "password", id: "form-password", class: "form-control", placeholder: "패스워드" %>
+		
+			</div>
+			<!--로그인버튼 input-->
+			<div class="actions">
+				<%= f.submit "Log in", id: "button1", class: "btn btn-lg btn-default", value: "로그인" %>
+			</div>		<br>
+			<%= render "devise/shared/links" %>
+		</div>
+		<% end %>
+	</div>
+</div>
+

@@ -1,0 +1,22 @@
+<div class = "page-signup" align="center">
+  <div class= "innerpage">
+    <div class= "pagehead" align="right"><%= render "devise/shared/links" %></div>
+    <div>
+        <h1 id="title-signup">비밀번호를 잊으셨나요?</h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
+    
+      <div class="field">
+        <!--<%= f.label :email %><br />-->
+        <%= f.email_field :email, autofocus: true, id: "reg-form-id", class: "form-control", placeholder: "가입된 이메일 주소"%>
+      </div>
+    
+      <div class="actions">
+        <%= f.submit "비밀번호 변경", id: "reg-form-button", class: "btn btn-lg btn-default" %>
+      </div>
+    <% end %>
+    
+    </div>
+</div>

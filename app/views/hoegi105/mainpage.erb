@@ -1,0 +1,113 @@
+
+    <!-- 강의 목록 -->
+
+    <% @lecture.each do |hot| %>
+        <div id="upper-panel">
+            <div id="cla-panel" ontouchstart="" class="panel panel-default" align ="left">
+                <a href='/hoegi105/classreview/<%= Classofhot.find(hot.classofhot_id).id %>'>
+                <div> 
+                    <div class="panel-title"><h4 class="text-title"><%= Classofhot.find(hot.classofhot_id).lecture_title %></h4></div>
+                    <div class="panel-professor"><h4 class="text-professor"><%= Classofhot.find(hot.classofhot_id).professor_name %></h4></div>
+                </div>
+                <div>                    
+                    <div class="panel-rates">
+                        <!--평점의 평균-->
+                        <input id="com-star-main" class="rating form-control hide"  data-size="sm" data-show-clear="false" data-show-caption="false" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
+                        <% totalStar = 0 %>
+                        <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
+                        <% review.each do |r| %>
+                            <% totalStar += r.eval_star %>
+                        <% end %>
+                        <% if review.count != 0 %>
+                            <%= (totalStar/review.count).round(1) %>
+                        <% else %>
+                            0
+                        <% end %>
+                        ">
+                            <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                                <span class="label2 label label-default">
+                            <% else if Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                                <span class="label2 label label-default">
+                            <% else %>
+                                <span class="label3 label label-default">
+                            <% end %>
+                            <% end %>
+                            
+                            <% totalStar = 0 %>
+                            
+                            <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
+                            <% review.each do |r| %>
+                                <% totalStar += r.eval_star %>
+                            <% end %>
+                            <% if review.count != 0 %>
+                                <%= (totalStar/review.count).round(1) %>
+                            <% else %>
+                                0.0
+                            <% end %></span>
+                            
+                            <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                                <p class="popcount2">
+                                    <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
+                                        회원님이 평가에 참여하였습니다.
+                                    <% else %>
+                                        회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
+                                    <% end%>
+                                </p>
+                            <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                                <p class="popcount2">
+                                    <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
+                                        회원님이 평가에 참여하였습니다.
+                                    <% else %>
+                                        회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
+                                    <% end%>
+                                </p>
+                            <% else %>
+                                <p class="popcount"> <%= Classofhot.find(hot.classofhot_id).reviews.count %>명이 평가에 참여하였습니다.</p>
+                            <% end %>
+                            <!--표시하지 않음<h4 class="text-rates"><%= Classofhot.find(hot.classofhot_id).typeof_lecture %></h4>-->
+                    </div>
+                    <div class="panel-comments">
+                        <button id="comment_icon_button" align="right" class="btn btn-msg btn-default" type="button"><h4 class="text-comments">
+                            <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                              <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+                            <% else if Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                            <span id="comment_icon" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+                            <% else %>
+                             <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+                            <% end %>
+                            <% end %>
+                        </button>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    <% end %>
+    
+<!--모달-->
+<div class="modal fade" id="main_myModalSelector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" content="initial-scale=1", "user-scalable=no">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">학과를 선택해주세요</h4>
+            </div>
+            <div class="modal-body" align="center">
+                
+                <!-- <div class="selector">
+                   <select class="form-control2" name="major">
+                        <option value="관광학과">관광</option>
+                        <option value="문화관광콘텐츠학과">문콘</option>
+                        <option value="호텔경영학과">호경</option>
+                        <option value="컨벤션경영학과">컨경</option>
+                        <option value="외식경영학과">외경</option>
+                        <option value="조리서비스경영학과">조경</option>
+                    </select></div>-->
+
+                <!--<input id="button2" class= "btn btn-lg btn-default" type="submit" value="선택">-->
+               
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+
+	<div class = "bg"></div>
+		<div id="logo"></div>
+		<!--로고 	<img id="logo" src="/assets/note.png">-->
+		<div class=titleslot>
+			<h1 id="title">꿀강!</h1></h1>
+		</div>
+	
+		<div class="loginform" align="center">
+		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+			<div class="input-group input-group-lg field">
+				<span></span>
+				<!--ID input-->
+				<br />
+	    		<%= f.email_field :email, autofocus: true, type: "text", id: "form-identification", class: "form-control", placeholder: "아이디"%>
+				
+			</div>
+			<div class="input-group input-group-lg field">
+				<!--비번 input-->
+	    		<%= f.password_field :password, autocomplete: "off", type: "password", id: "form-password", class: "form-control", placeholder: "패스워드" %>
+	    	</div>
+	    	<!--<% if devise_mapping.rememberable? -%>-->
+			   <!-- <div id="newf" class="field">-->
+			   <!--   <%= f.check_box :remember_me %>-->
+			   <!--   <%= f.label :로그인유지 %>-->
+			   <!-- </div>-->
+  				<% end %>
+		
+			
+			<!--로그인버튼 input-->
+			<div class="actions">
+				<%= f.submit "Log in", id: "button1",ontouchstart:"", class: "btn btn-lg btn-default", value: "로그인" %>
+			</div>		<br>
+			<%= render "devise/shared/links" %>
+		<% end %>
+		</div>
+		
+<!--인덱스에서 모달은 효과에 비해 버려야 하는게 너무나 많다-->
+
+		<!-- <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" align="center">
+			<div class="modal-dialog"  role="document" align="center">
+				<div class="modal-content" id="signup-modal" align="center">
+					<div class="modal-header" align="right">
+						<button type="button" id="primaryButton"  data-dismiss="modal"/><span class ="glyphicon glyphicon-remove"/>
+					</div>
+					<div id="modal-main" class="modal-body">
+						<iframe src="/hoegi105/join" />
+					</div>
+				</div>
+			</div>
+		</div>-->
+
+
+
+

@@ -1,0 +1,9 @@
+<h1>댓글!</h1>
+        <% @review.replies.each do |repl| %>
+            <%= repl.reply_content %>
+            | <%= repl.reply_writer %><br>
+        <% end %>
+        <form action="/hoegi105/reply_process/<%= @review.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다. -->
+            <input id="com-com-com" class="form-control" type="textarea" name="replycontent">
+            <input id="com-submit" class="btn btn-default" type="submit" value="등록">
+        </form>
