@@ -1277,11 +1277,11 @@ font-size:4.5vw;
     display:inline-block;
     width:100vw;
     border-width:0 0 0 0 ;
-    height:50vw!important;
+    height:35vw!important;
     margin-top:5% !important;
     font-weight:500 !important;
     margin-bottom:1.8vw !important;
-    font-size:4.5vw !important;
+    font-size:4vw !important;
     border-radius:0vw !important;
     padding-left:5vw !important;
     padding-right:5vw;
@@ -1447,12 +1447,12 @@ height:2vw;
 .revtitle{
     float:left;
     width:56vw;
-    font-size:5.5vw;
+    font-size:5vw;
     color:black;
 }
 
 .marginupper{
-    height:18vw;
+    height:15vw;
     padding-top:5vw;
     margin-bottom:0%;
 }
