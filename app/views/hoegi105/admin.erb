@@ -48,7 +48,7 @@
             <td><%= user.last_sign_in_at %></td>
             <td><%= user.created_at %></td>
             <td><%= user.updated_at %></td>
-            <td><%= Major.where(:major_code => user.user_major) %></td>
+            <td><%= Major.find(user.user_major).major_title %></td>
             <td><%= user.student_num %></td>
         </tr>
     <% end %>
