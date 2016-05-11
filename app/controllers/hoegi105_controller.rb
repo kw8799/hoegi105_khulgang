@@ -265,7 +265,6 @@ class Hoegi105Controller < ApplicationController
             redirect_to '/hoegi105/error'
         elsif Proscon.exists?(:review_id => params[:id], :disagree_user => current_user.email)
             redirect_to '/hoegi105/error'
-        elsif Proscon.exists?(:review_id => params[:id], )
         else
             @useremail = current_user.email
             agreement = Proscon.new
