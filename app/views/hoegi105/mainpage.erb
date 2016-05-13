@@ -19,7 +19,7 @@
                             <% totalStar += r.eval_star %>
                         <% end %>
                         <% if review.count != 0 %>
-                            <%= (totalStar.to_f/review.count).round(1) %>
+                            <%= (totalStar/review.count).round(1) %>
                         <% else %>
                             0
                         <% end %>
@@ -84,30 +84,3 @@
         </div>
     <% end %>
     
-<!--모달-->
-<div class="modal fade" id="main_myModalSelector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" content="initial-scale=1", "user-scalable=no">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">학과를 선택해주세요</h4>
-            </div>
-            <div class="modal-body" align="center">
-                
-                <!-- <div class="selector">
-                   <select class="form-control2" name="major">
-                        <option value="관광학과">관광</option>
-                        <option value="문화관광콘텐츠학과">문콘</option>
-                        <option value="호텔경영학과">호경</option>
-                        <option value="컨벤션경영학과">컨경</option>
-                        <option value="외식경영학과">외경</option>
-                        <option value="조리서비스경영학과">조경</option>
-                    </select></div>-->
-
-                <!--<input id="button2" class= "btn btn-lg btn-default" type="submit" value="선택">-->
-               
-            </form>
-            </div>
-        </div>
-    </div>
-</div>
