@@ -22,6 +22,7 @@
     <!--<link href="/app/assets/starrating/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />-->
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
 
   <%= csrf_meta_tags %>
 
@@ -83,10 +84,9 @@
   </nav>
 <!--네비게이션 바 끝-->
   <% end %>
-  <%= javascript_include_tag 'application' %>
 
 
-
+<%= yield %>
   <% if user_signed_in? %>
 
 <!--우측 메뉴 버튼으로 불러오는 페이지 -->
@@ -110,7 +110,7 @@
 <!--학과 선택 메뉴-->
   
   </div>
-<%= yield %>
+
     <!--학과, 학번을 이미 입력한 경우-->
             <div class="row" id="navextension" align="center">
                 <!--<h5 class="h5-main"><a href="/hoegi105/admin">관리자페이지(수정예정)</a></h5>관리자 페이지-->
