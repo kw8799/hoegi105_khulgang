@@ -85,7 +85,7 @@
   <% end %>
   <%= javascript_include_tag 'application' %>
 
-  <%= yield %>
+
 
   <% if user_signed_in? %>
 
@@ -115,16 +115,10 @@
             <div class="row" id="navextension" align="center">
                 <!--<h5 class="h5-main"><a href="/hoegi105/admin">관리자페이지(수정예정)</a></h5>관리자 페이지-->
                
-               <!-- 강의실인 경우 -->
-                <% if params[:id] != nil %>
-                <a href = '/hoegi105/mainpage'>
-                    <button id="selectyourdep" ontouchstart="" class= "btn btn-lg btn-default" >
-                      강의 더보기
-                   
-                      </button></a>
+ 
                       
               <!-- 학과값이 없는 경우 -->
-                <% elsif current_user.user_major == nil %>
+                <% if current_user.user_major == nil %>
                     <button id="selectyourdep" ontouchstart="" class= "btn btn-lg btn-default" >
                       회원님의 학과를 선택해주세요
 
@@ -144,6 +138,14 @@
                                 }
                                 
                         });</script>
+                        
+                              <!-- 강의실인 경우 -->
+                <% elsif params[:id] != nil %>
+                <a href = '/hoegi105/mainpage'>
+                    <button id="selectyourdep" ontouchstart="" class= "btn btn-lg btn-default" >
+                      강의 더보기
+                   
+                      </button></a>
                 <% elsif current_user.user_major != nil && params[:major] == nil %>
                     <button id="selectyourdep" ontouchstart="" class= "btn btn-lg btn-default"><%= Major.find(current_user.user_major).major_title %></button>
                                                 <script>
@@ -244,7 +246,8 @@
       <% end %>
   <% else %>
   <% end %>
-<body>
+  
+    <%= yield %>
 </body>
 
 </html>

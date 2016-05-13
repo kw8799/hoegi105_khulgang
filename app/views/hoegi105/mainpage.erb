@@ -19,7 +19,7 @@
                             <% totalStar += r.eval_star %>
                         <% end %>
                         <% if review.count != 0 %>
-                            <%= (totalStar/review.count).round(1) %>
+                            <%= (totalStar.to_f/review.count).round(1) %>
                         <% else %>
                             0
                         <% end %>
