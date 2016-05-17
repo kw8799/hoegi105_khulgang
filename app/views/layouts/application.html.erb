@@ -83,8 +83,6 @@
   <% end %>
 
 
-<%= yield %>
-
       <% if user_signed_in? %>
       <!--우측 메뉴 버튼으로 불러오는 페이지 -->
       <nav id = 'itswho' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" id="cbp-spmenu-s4">
@@ -238,8 +236,8 @@
   </nav>
 </div>
   <% end %>
-  <% else %>
-  <% end %>
-  
+<% else %>
+<% end %>
+<%= yield %>
 </body>
 </html>
