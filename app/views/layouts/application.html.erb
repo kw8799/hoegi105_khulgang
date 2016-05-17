@@ -83,23 +83,23 @@
   <% end %>
 
 
-      <% if user_signed_in? %>
-      <!--우측 메뉴 버튼으로 불러오는 페이지 -->
-      <nav id = 'itswho' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" id="cbp-spmenu-s4">
-        <a class="rmenu" href="/hoegi105/myreview">나의평가</a>
-        <%= link_to "정보수정", edit_user_registration_path, class: "rmenu"%>
-        <a class="rmenu" href="/logout">로그아웃</a>
-        <a class="rmenu" id="closer">닫기</a>
-                    
-          <script>
-            var me = document.querySelector("#closer");
-            $(me).click(function() {
-            var you = document.querySelector("#itswho");
-                you.style.height = '0vw';
-                                  });
-          </script>
-              
-      </nav>
+    <% if user_signed_in? %>
+    <!--우측 메뉴 버튼으로 불러오는 페이지 -->
+    <nav id = 'itswho' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" id="cbp-spmenu-s4">
+      <a class="rmenu" href="/hoegi105/myreview">나의평가</a>
+      <%= link_to "정보수정", edit_user_registration_path, class: "rmenu"%>
+      <a class="rmenu" href="/logout">로그아웃</a>
+      <a class="rmenu" id="closer">닫기</a>
+                  
+        <script>
+          var me = document.querySelector("#closer");
+          $(me).click(function() {
+          var you = document.querySelector("#itswho");
+              you.style.height = '0vw';
+                                });
+        </script>
+            
+    </nav>
   </div>
     
 <!--학과 선택 메뉴-->
