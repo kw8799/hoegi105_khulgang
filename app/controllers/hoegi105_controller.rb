@@ -172,7 +172,7 @@ class Hoegi105Controller < ApplicationController
             else
                 @profile = ["거북왕", "고라파덕", "꼬부기", "롱스톤", "리자드", "리자몽", 
                             "어니부기", "나옹", "이상해꽃", "피카츄", "이상해씨", "이상해풀", 
-                            "디그다", "토게피", "파이리", "푸린", "", "꼬마돌", "뮤", "발챙이",
+                            "디그다", "토게피", "파이리", "푸린", "꼬마돌", "뮤", "발챙이",
                             "성원숭", "야돈", "잉어킹"]
                 lecturereviews = Review.where('classofhot_id = ?',params[:id])
                 lecturereview = Review.new #lecturereview변수는 Review(DB)에 새로운 값을 생성한다.
