@@ -3,6 +3,7 @@
     <div class= "pagehead" align="right"><%= render "devise/shared/links" %></div>
     <div>
         <h1 id="title-signup">비밀번호를 잊으셨나요?</h1>
+        <p>가입된 이메일 주소를 입력하시고 메일함을 확인해주세요!</p>
     </div>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
