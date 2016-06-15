@@ -1,22 +1,3 @@
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
-<!--<script> 
-// $(document).ready(function(){
-//     $(".show-more-coms").click(function(){
-//       //$(this).closest('.upperrow').children('.row-com2').slideToggle("fast"); // 수동으로 대댓글 열기
-        
-//         if($(this).closest('.upperrow').children('.row-com2').is(':visible')){
-//             $(this).closest('.upperrow').children('.row-com2').slideUp("fast");
-//         }
-//         else{
-//         $('.row-com2').slideUp("fast");
-//         $(this).closest('.upperrow').children('.row-com2').slideToggle("fast");
-            
-//         }
-//         //다른 글의 대댓글을 열면 나머지는 다 닫기
-//     });
-// });
-// </script>-->
-
 <!-- 리뷰출력 -->
 <% unless @lecture.count == 0 %>
     <% @lecture.each do |revw| %>
@@ -64,13 +45,13 @@
                   <% if revw.eval_grade == 3 %> 
                     <span class="label-tag label-danger">학점느님</span>
                   <% elsif revw.eval_grade == 2 %> 
-                    <span class="label-tag label-danger">상대평가</span>
+                    <span class="label-tag label-danger">원칙대로</span>
                   <% else %> 
-                    <span class="label-tag label-danger">C뿌리기</span>
+                    <span class="label-tag label-danger">학점폭격</span>
                   <% end %>
                 </span> &nbsp;
                 <span class="label-tag label-g2">
-                  <% if revw.eval_easy == 3 %> 꿀강
+                  <% if revw.eval_easy == 3 %> 편해요
                   <% elsif revw.eval_easy == 2 %> 버틸만함
                   <% else %> 개피곤
                   <% end %>
