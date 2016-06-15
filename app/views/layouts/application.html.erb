@@ -40,16 +40,18 @@
         <a id="home-ex" href="/hoegi105/mainpage">
         <button id="homeButton" class="btn btn-default" type="button " ontouchstart=""><span  id="home_icon" class="glyphicon glyphicon-home"></span ></button></a>
       </div>
+      
+      <!--검색창-->
       <div class="col-xs-6" align="center">
-        <p class="apptitle">강의평가 서비스</p>
-        <!--검색창 <div id="search-pane" class="input-group input-group-lg">
-          <input id="searchPane1" type="text" class="form-control" placeholder="강의명을 써주세요(추후지원)">
-        
-        </div>-->
+        <form id = "searching" action="/hoegi105/search" method="get">
+          <div id="search-pane" class="input-group input-group-lg">
+          <input id="searchPane1" type="text" class="form-control" name="title" placeholder="강의명">
+          <input id="searchButton" class="form-control" type="submit" value="" form="searching">
+        </form></div>
+       
       </div>
-      <!--<div class="col-xs-1">
-       <!--검색 버튼 <button id="searchButton" class="btn btn-default" type="button"><span id="search_icon" class="glyphicon glyphicon-search"></span ></button>
-      </div>-->
+      
+      
       <div class="col-xs-1">
         <button id="menuButton" ontouchstart="" class="btn btn-default" type="button"><span id="menu_icon" class="glyphicon   glyphicon-menu-hamburger"></span ></button>
             

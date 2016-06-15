@@ -872,7 +872,7 @@ body {
     background-color:#ffffff;
 }
 #search-pane{
-    width:51vw !important;
+    width:68vw !important;
     padding:0px !important;
 
     
@@ -1206,6 +1206,13 @@ a{
     height:16vw;
 }
 
+#searching2{
+    width:0;
+    height:0;
+    padding:0;
+    border:0;
+    margin:0;
+}
 .profile-image{
     
     width:12vw;
@@ -1214,6 +1221,7 @@ a{
     border-radius:0.5em;
     /*background-image: url("/assets/bird.jpg");*/
     background-size:10vw 10vw;
+    
 }
 
 #com-panel-like{
@@ -1496,10 +1504,15 @@ height:2vw;
     border-width:1px 0px 1px 0px;
     border-radius:0px;
     border-color:#ff479c;
+    
 }
 
 #button_review1:active{
    background-color:#ff479c;
+}
+
+#button_review:active .glyphicon-heart{
+    color:white;
 }
 
 #button_review1:active .glyphicon-pencil{
@@ -1537,6 +1550,7 @@ height:2vw;
     border-width:1px 0px 1px 0px;
     border-radius:0px;
     border-color:#ff479c;
+    padding:2.2vw !important;
 }
 
 .modal-content{
@@ -1567,9 +1581,39 @@ height:2vw;
 
 }
 
+.smalltext{
+    font-size:3vw;
+    color:#ff479c;
+}
+.smalltext1{
+    font-size:3vw;
+    color:#ff479c;
+}
+.smalltext2{
+    font-size:3vw;
+    color:#ff479c;
+}
 
+#button_rating:active .smalltext{
+    font-size:3vw;
+    color:white;
+}
+
+
+#button_review1:active .smalltext1{
+    font-size:3vw;
+    color:white;
+}
+
+#button_review:active .smalltext2{
+    font-size:3vw;
+    color:white;
+}
 #searchPane1{
-    width: 51vw;
+    width: 52vw;
+    border-top-right-radius:0px !important;
+    border-bottom-right-radius:0px !important;
+    border-style:none;
 }
 
 .container-fluid{
@@ -1578,11 +1622,24 @@ height:2vw;
 }
 
 #searchButton{
-    width:15vw;
-    height:16.2vw;
+    width:13vw;
+    padding:0;
     border-radius:0vw;
-    background-color:transparent;
     border-style:none;
+    border-top-left-radius:0px !important;
+    border-bottom-left-radius:0px !important;
+background-image:url("/assets/grey.png");
+
+background-size:7vw 7vw;
+background-repeat: no-repeat;
+background-position:center;
+
+
+}
+
+#searchButton:active{
+    background-color:#ff479c;
+    background-image:url("/assets/white.png");
 }
 
 #search_icon{

@@ -29,6 +29,10 @@ class Hoegi105Controller < ApplicationController
         end
     end
     
+    def search
+        @lecture = Classofhot.where("lecture_title LIKE ?", "%" + params[:title] + "%")
+    end
+    
     def major_process
         urmajor = User.find(current_user.id) #Classofhot(DB)에서 특정 id값에 해당하는 자료
         urmajor.user_major = params[:major_choice]
@@ -104,8 +108,8 @@ class Hoegi105Controller < ApplicationController
 
     
     def admin_delete
-        unless user_signed_in?
-	        redirect_to ''
+        unless current_user.email == "hoegi105@gmail.com"
+            redirect_to ''
         end
         lecture = Classofhot.find(params[:id]) #Classofhot(DB)에서 특정 id값에 해당하는 자료
         lecture.reviews.destroy_all
@@ -167,8 +171,9 @@ class Hoegi105Controller < ApplicationController
 	            redirect_to '/hoegi105/error'
             else
                 @profile = ["거북왕", "고라파덕", "꼬부기", "롱스톤", "리자드", "리자몽", 
-                            "어니부기", "웅이", "이상해꽃", "피카츄", "이상해씨", "이상해풀", 
-                            "이슬이", "토게피", "파이리", "푸린", "한지우", "꼬마돌"]
+                            "어니부기", "나옹", "이상해꽃", "피카츄", "이상해씨", "이상해풀", 
+                            "디그다", "토게피", "파이리", "푸린", "", "꼬마돌", "뮤", "발챙이",
+                            "성원숭", "야돈", "잉어킹"]
                 lecturereviews = Review.where('classofhot_id = ?',params[:id])
                 lecturereview = Review.new #lecturereview변수는 Review(DB)에 새로운 값을 생성한다.
                 lecturereview.classofhot_id = params[:id] #널 내가 빼먹었었구나! 시발@

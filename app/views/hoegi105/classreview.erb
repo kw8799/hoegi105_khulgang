@@ -1,36 +1,15 @@
-<!--<script> 
-$(document).ready(function(){
-    $(".show-more-coms").click(function(){
-       //$(this).closest('.upperrow').children('.row-com2').slideToggle("fast"); // 수동으로 대댓글 열기
-        
-        if($(this).closest('.upperrow').children('.row-com2').is(':visible')){
-            $(this).closest('.upperrow').children('.row-com2').slideUp("fast");
-        }
-        else{
-        $('.row-com2').slideUp("fast");
-        $(this).closest('.upperrow').children('.row-com2').slideToggle("fast");
-            
-        }
-        //다른 글의 대댓글을 열면 나머지는 다 닫기
-      
-    });
-});
-</script>-->
-
-
 <div class="page-ex" align="center"></div>
                 
     <div id="panel-ex" class="panel panel-default">
-        <!--현재접속계정 : <%= current_user.email %><br>-->
         <h4 class="text-ex"><%= @lecture.lecture_title %></h4>
         
         <h4 class="text-ex2"><%= @lecture.typeof_lecture %> &nbsp; &nbsp; &nbsp; <%= @lecture.professor_name%></h4>
         
-        <h4 class="text-ex2">
-          <% @major.each do |f| %>
-            <%= f.major_title %><br>
-          <% end %>
-        </h4>
+        <!--<h4 class="text-ex2">-->
+        <!--  <% @major.each do |f| %>-->
+        <!--    <%= f.major_title %><br>-->
+        <!--  <% end %>-->
+        <!--</h4>-->
         
         <!-- 평점의 평균값 도출! -->
         <input id="com-star" class="rating form-control hide"  data-size="xl" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= @averagecomft_grade.round(1) %>">
@@ -42,7 +21,9 @@ $(document).ready(function(){
               
               <span class="label-tag-big label-none">평가없음</span>
             <% else %>
-
+            
+              
+              
                 <!-- 파이 차트 실험중 -->
                 <div class="pietaker">
                 <div class="piecontainer"align="center">  
@@ -338,8 +319,8 @@ $(document).ready(function(){
                   </script>
         <% end %>
       </div>
-         <p class="popcount2"><%= @lecture.reviews.count %>명이 평가에 참여하였습니다.</p>
-        <p class="popcount2"><%= @lecture.reviews.where.not(review_content: nil).count %>개의 리뷰가 작성됐습니다.</p>
+         <p class="popcount2"><%= @lecture.reviews.count %>명이 참여하였습니다.</p>
+        <p class="popcount2"><%= @lecture.reviews.where.not(review_content: nil).count %>개의 평가가 작성되었습니다.</p>
     
     <div id="com-panel" class="com-text" align="center">
         <div>
@@ -367,6 +348,7 @@ $(document).ready(function(){
                         });</script>
             <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
               <span class= "reviewwriting glyphicon glyphicon-pencil"></span>
+              <p class = "smalltext1">  평가쓰기</p>
             </button>
                 <script>
                                  var me = document.querySelector("#button_review");
@@ -383,6 +365,7 @@ $(document).ready(function(){
                         });</script>
             <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
               <span class= "glyphicon glyphicon-heart"></span>
+              <p class = "smalltext2">  관심과목</p>
             </button>
             
           <!--코멘트까지 준 경우-->
@@ -396,13 +379,14 @@ $(document).ready(function(){
             </button>
             <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
               <span class="glyphicon glyphicon-heart"></span>
+              <p class = "smalltext2">  관심과목</p>
             </button>
             
           <!--별점&코멘트 모두 작성하지 않은 경우-->
           <% else %>
             <button ontouchstart:"" id="button_rating" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-star"></span>
-              
+              <p class = "smalltext">  별점주기</p>
             </button>
                  <script>
                                  var me = document.querySelector("#button_rating");
@@ -419,6 +403,8 @@ $(document).ready(function(){
                         });</script>
             <button ontouchstart="" id="button_review1" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-pencil"></span>
+              <p class = "smalltext1">  평가쓰기</p>
+
             </button>
               <script>
                                  var me = document.querySelector("#button_review1");
@@ -435,6 +421,7 @@ $(document).ready(function(){
                         });</script>
             <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-heart"></span>
+              <p class = "smalltext2">관심과목</p>
             </button>
             
           <% end %>
@@ -448,7 +435,7 @@ $(document).ready(function(){
             <div id="for-profile-image" class="col-xs-1">
                 <div class="profile-image"><img class="profile-image"src="/assets/<%= revw.picture %>.png"></div>
                 <% if revw.review_writer == current_user.email %>
-                  <p class="com-date">나의 리뷰</p>
+                  <img src="/assets/ball.jpg" style="height: 25px; margin-top:20px" align="center">
                 <% else %>
                 <% end %>
             </div>
@@ -506,17 +493,14 @@ $(document).ready(function(){
                 <div class="row row-com-inner" align="left">
                     <%= simple_format(revw.review_content, :class => "com-context") %>
                     <!--태그색상--> 
-                    
-                      <% if revw.eval_grade == 3 %> 
-                        <span class="label-tag label-danger">학점느님</span>
-                      <% elsif revw.eval_grade == 2 %> 
-                        <span class="label-tag label-danger">상대평가</span>
-                      <% else %> 
-                        <span class="label-tag label-danger">C뿌리기</span>
+                    <span class="label-tag label-danger">
+                      <% if revw.eval_grade == 3 %>학점느님
+                      <% elsif revw.eval_grade == 2 %>원칙대로
+                      <% else %> 학점폭격
                       <% end %>
                     </span> &nbsp;
                     <span class="label-tag label-g2">
-                      <% if revw.eval_easy == 3 %> 꿀강
+                      <% if revw.eval_easy == 3 %> 편해요
                       <% elsif revw.eval_easy == 2 %> 버틸만함
                       <% else %> 개피곤
                       <% end %>
@@ -557,34 +541,37 @@ $(document).ready(function(){
 </div>
 </div>
 </div>
-<!-- 모달을 대체할 신규 리뷰, 별점이 없는 상황에서 리뷰쓰기 -->
+<!--지우지말것-->
+<form></form>
+<!-- 신규 리뷰, 별점이 없는 상황 -->
 <nav id = 'itsyou' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
-                   <div class="marginupper">
-                    <div class="leftupper"><button id="com-close" class="textbutton">닫기</button>
+                  <div class="marginupper">
+                    <div class="leftupper"><p id="com-close" class="textbutton">닫기</p>
                       <script> var me = document.querySelector("#com-close");
                                 $(me).click(function() {
                                 var you = document.querySelector("#itsyou");
                                     you.style.height = '0%';
-                        });</script></div>
-                          <div class ="revtitle"><%= @lecture.lecture_title %></div>
+                        });
+                      </script></div>
+                    <div class ="revtitle">평가쓰기</div>
                     <div class="rightupper">
                       <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form1">
-                      </div></div>
+                    </div> 
+                  </div>
 
   <form id="form1" action="/hoegi105/review_process/<%= @lecture.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
-                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" >
-                
+                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
                 <div>
-                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="평가는 수정이 불가하니 신중히 작성해주세요." required='required'></textarea>
+                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 minlength="10" placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
                 </div>
                 <!--학점에 대한 태그-->
                 <div class="input-star2"></div>
                 <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary active">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> C뿌리기
+                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
+                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
                   </label>
-                  <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> 상대평가
+                  <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary  active">
+                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
                   </label>
                   <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
                     <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
@@ -592,41 +579,47 @@ $(document).ready(function(){
                 </div><br>
                 <!--편한지에 대한 태그-->
                 <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary active">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 checked> 개피곤
+                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
+                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1> 개피곤
+                  </label>
+                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary  active">
+                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
                   </label>
                   <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2> 버틸만함
-                  </label>
-                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 꿀강
+                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
                   </label>
                 </div><br>
                 <!--배우는게 있는지에 대한 태그-->
                 <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary active">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1 checked> 쓰레기수업
-                  </label>
                   <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2> 평타강의
+                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1 > 쓰레기수업
+                  </label>
+                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary  active">
+                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2 checked> 평타강의
                   </label>
                   <label ontouchstart:"" class=" label-13 tagger3 btn btn4 btn-primary">
                     <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
                   </label>
-                </div>
-            </form>
+                </div><br>
+  </form>
 
   </nav>
-  <!-- 모달을 대체할 신규 리뷰, 별점이 있는 상황에서 리뷰쓰기 -->
+
+
+
+
+
+
+  <!-- 신규 리뷰, 별점이 있는 상황 -->
 <nav id = 'itsyou2' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
                    <div class="marginupper">
-                    <div class="leftupper"><button id="com-close2" class="textbutton">닫기</button>
-                      <script> var me = document.querySelector("#com-close2");
+                    <div class="leftupper"><p id="com-close2" class="textbutton">닫기</p>
+                     <script> var me = document.querySelector("#com-close2");
                                 $(me).click(function() {
                                 var you = document.querySelector("#itsyou2");
                                     you.style.height = '0%';
                         });</script></div>
-                          <div class ="revtitle"><%= @lecture.lecture_title %></div>
+                          <div class ="revtitle">평가쓰기</div>
                     <div class="rightupper">
                       <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form2">
                       </div></div>
@@ -634,7 +627,7 @@ $(document).ready(function(){
   <form id="form2" action="/hoegi105/edit_review/<%= @mycontent_id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
                 <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
                  <div>
-                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="평가는 수정이 불가하니 신중히 작성해주세요." required='required'></textarea>
+                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
 
                 </div>
                 <!--학점에 대한 태그-->
@@ -653,7 +646,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > C뿌리기
+                    > 학점폭격
                   </label>
                   <label  class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -668,7 +661,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > 상대평가
+                    > 원칙대로
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -732,7 +725,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > 꿀강
+                    > 편해요
                   </label>
                 </div><br>
                 
@@ -790,16 +783,16 @@ $(document).ready(function(){
 
   </nav>
   
-<!--새로 별점 매기기-->
+<!-- 별점 매기기 new-->
 <nav id = 'itsyou3' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
                    <div class="marginupper">
-                    <div class="leftupper"><button id="com-close3" class="textbutton">닫기</button>
+                    <div class="leftupper"><p id="com-close3" class="textbutton">닫기</p>
                       <script> var me = document.querySelector("#com-close3");
                                 $(me).click(function() {
                                 var you = document.querySelector("#itsyou3");
                                     you.style.height = '0%';
                         });</script></div>
-                          <div class ="revtitle"><%= @lecture.lecture_title %></div>
+                          <div class ="revtitle">별점주기</div>
                     <div class="rightupper">
                       <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form3">
                       </div></div>
@@ -809,11 +802,11 @@ $(document).ready(function(){
                 <!--학점에 대한 태그-->
                 <div class="input-star2"></div>
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="label-11 tagger1 btn btn2 btn-primary active">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 checked> C뿌리기
+                  <label class="label-11 tagger1 btn btn2 btn-primary ">
+                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
                   </label>
-                  <label  class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2> 상대평가
+                  <label  class="label-11 tagger1 btn btn2 btn-primary active">
+                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary">
                     <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
@@ -821,23 +814,23 @@ $(document).ready(function(){
                 </div><br>
                 <!--편한지에 대한 태그-->
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="label-12 tagger2 btn btn3 btn-primary active">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 checked> 개피곤
+                  <label class="label-12 tagger2 btn btn3 btn-primary">
+                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 > 개피곤
+                  </label>
+                  <label class="label-12 tagger2 btn btn3 btn-primary  active">
+                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
                   </label>
                   <label class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2> 버틸만함
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 꿀강
+                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
                   </label>
                 </div><br>
                 <!--배우는게 있는지에 대한 태그-->
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="label-13 tagger3 btn btn4 btn-primary active">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1 checked> 쓰레기수업
+                  <label class="label-13 tagger3 btn btn4 btn-primary ">
+                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1> 쓰레기수업
                   </label>
-                  <label class="label-13 tagger3 btn btn4 btn-primary">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2> 평타강의
+                  <label class="label-13 tagger3 btn btn4 btn-primary active">
+                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2  checked> 평타강의
                   </label>
                   <label class=" label-13 tagger3 btn btn4 btn-primary">
                     <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
@@ -849,7 +842,7 @@ $(document).ready(function(){
 
   </nav>
   
-<!--별점 수정하기-->
+<!-- 별점 매기기 update -->
 <!--현재 평가하지 않은 강의에 접속시 오류발생 평가하지 않은 강의실에선 @mylecturerevw를 불러올 수 없기 떄문임-->
 <nav id = 'itsyou4' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
                    <div class="marginupper">
@@ -859,7 +852,7 @@ $(document).ready(function(){
                                 var you = document.querySelector("#itsyou4");
                                     you.style.height = '0%';
                         });</script></div>
-                          <div class ="revtitle"><%= @lecture.lecture_title %></div>
+                          <div class ="revtitle">별점수정</div>
                     <div class="rightupper">
                       <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="수정" form="form4">
                       </div></div>
@@ -883,7 +876,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > C뿌리기
+                    > 학점폭격
                   </label>
                   <label  class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -898,7 +891,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > 상대평가
+                    > 원칙대로
                   </label>
                   <label class="label-11 tagger1 btn btn2 btn-primary 
                     <% if @mylecturerevw != nil %>
@@ -962,7 +955,7 @@ $(document).ready(function(){
                           <%= 'checked' %>
                         <% end %>
                       <% end %>
-                    > 꿀강
+                    > 편해요
                   </label>
                 </div><br>
                 

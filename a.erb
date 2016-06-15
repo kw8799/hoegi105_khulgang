@@ -1,0 +1,62 @@
+<!-- 신규 리뷰, 별점이 없는 상황 -->
+<nav id = 'itsyou' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
+                   <div class="marginupper">
+                    <div class="leftupper"><p id="com-close" class="textbutton">닫기</p>
+                     <script> var me = document.querySelector("#com-close");
+                                $(me).click(function() {
+                                var you = document.querySelector("#itsyou");
+                                    you.style.height = '0%';
+                        });</script></div>
+                          <div class ="revtitle"><%= @lecture.lecture_title %></div>
+                    <div class="rightupper">
+                      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form5">
+                      </div></div>
+
+  <form id="form5" action="/hoegi105/review_process/<%= @lecture.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
+                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" >
+                <div>
+                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="평가는 수정이 불가하니 신중히 작성해주세요."></textarea>
+                </div>
+                학점에 대한 태그
+                <div class="input-star2"></div>
+                <div class="btn-group" data-toggle="buttons">
+                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
+                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > C뿌리기
+                  </label>
+                  <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary  active">
+                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 상대평가
+                  </label>
+                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
+                    <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
+                  </label>
+                </div><br>
+                편한지에 대한 태그
+                <div class="btn-group" data-toggle="buttons">
+                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
+                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1> 개피곤
+                  </label>
+                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary  active">
+                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
+                  </label>
+                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
+                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 꿀강
+                  </label>
+                </div><br>
+                배우는게 있는지에 대한 태그
+                <div class="btn-group" data-toggle="buttons">
+                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary">
+                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1 > 쓰레기수업
+                  </label>
+                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary  active">
+                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2 checked> 평타강의
+                  </label>
+                  <label ontouchstart:"" class=" label-13 tagger3 btn btn4 btn-primary">
+                    <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
+                  </label>
+                </div><br>
+            </form>
+
+  </nav>
+
+
+

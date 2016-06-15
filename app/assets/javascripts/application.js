@@ -120,7 +120,7 @@
         },
         getPosition: function (e) {
             var pageX = isEmpty(e.pageX) ? e.originalEvent.touches[0].pageX : e.pageX;
-            return pageX - this.$rating.offset().left;
+           return pageX - this.$rating.offset().left;
         },
         listen: function () {
             var self = this, pos, out;

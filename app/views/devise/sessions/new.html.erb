@@ -1,9 +1,8 @@
 
 	<div class = "bg"></div>
 		<div id="logo"></div>
-		<!--로고 	<img id="logo" src="/assets/note.png">-->
 		<div class=titleslot>
-			<h1 id="title">꿀강!</h1></h1>
+			<h1 id="title">Khulgang</h1>
 		</div>
 	
 		<div class="loginform" align="center">
@@ -19,18 +18,18 @@
 				<!--비번 input-->
 	    		<%= f.password_field :password, autocomplete: "off", type: "password", id: "form-password", class: "form-control", placeholder: "패스워드" %>
 	    	</div>
-	    	<!--<% if devise_mapping.rememberable? -%>-->
-			   <!-- <div id="newf" class="field">-->
-			   <!--   <%= f.check_box :remember_me %>-->
-			   <!--   <%= f.label :로그인유지 %>-->
-			   <!-- </div>-->
+	    	<% if devise_mapping.rememberable? -%>
+			    <div id="new" class="field">
+			      <%= f.check_box :remember_me %>
+			      <%= f.label :"로그인 유지", class: "textlink" %>
+			    </div>
   				<% end %>
 		
 			
 			<!--로그인버튼 input-->
 			<div class="actions">
-				<%= f.submit "Log in", id: "button1",ontouchstart:"", class: "btn btn-lg btn-default", value: "로그인" %>
-			</div>		<br>
+				<%= f.submit "Log in", id: "button1", ontouchstart:"", class: "btn btn-lg btn-default", value: "로그인" %>
+			</div>
 			<%= render "devise/shared/links" %>
 		<% end %>
 		</div>
