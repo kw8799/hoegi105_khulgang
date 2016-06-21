@@ -48,7 +48,11 @@
             <td><%= user.last_sign_in_at %></td>
             <td><%= user.created_at %></td>
             <td><%= user.updated_at %></td>
-            <td><%= Major.find(user.user_major).major_title %></td>
+            <% if user.user_major == nil %>
+                <td>선택안함</td>
+            <% else %>
+                <td><%= Major.find(user.user_major).major_title %></td>
+            <% end %>
             <td><%= user.student_num %></td>
         </tr>
     <% end %>
