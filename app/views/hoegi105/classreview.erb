@@ -514,18 +514,18 @@
                 </div>
                 <div class="row row-com-inner2" align="left">
                     <p class="com-more">
-                      <% if ((Time.now - revw.updated_at)/60)<1 %>
+                      <% if ((Time.now - revw.created_at)/60)<1 %>
                         방금
-                      <% elsif ((Time.now - revw.updated_at)/3600)<=1 %>
-                       <%=((Time.now - revw.updated_at)/60).round %> 분 전
-                       <% elsif ((Time.now - revw.updated_at)/3600)<=24 %>
-                        <%= ((Time.now - revw.updated_at)/3600).round %> 시간 전
-                      <%elsif ((Time.now - revw.updated_at)/3600/24).round == 1%>
+                      <% elsif ((Time.now - revw.created_at)/3600)<=1 %>
+                       <%=((Time.now - revw.created_at)/60).round %> 분 전
+                       <% elsif ((Time.now - revw.created_at)/3600)<=24 %>
+                        <%= ((Time.now - revw.created_at)/3600).round %> 시간 전
+                      <%elsif ((Time.now - revw.created_at)/3600/24).round == 1%>
                         하루 전
-                       <% elsif ((Time.now - revw.updated_at)/3600)<=24*7 %>
-                         <%= ((Time.now - revw.updated_at)/3600/24).round %> 일 전
+                       <% elsif ((Time.now - revw.created_at)/3600)<=24*7 %>
+                         <%= ((Time.now - revw.created_at)/3600/24).round %> 일 전
                        <% else %>
-                        <%= revw.updated_at.strftime("%-m월 %-e일") %>
+                        <%= revw.created_at.strftime("%-m월 %-e일") %>
                        <% end %>
                     <!--<a href="/hoegi105/reply/<%= revw.id %>" class="show-more-coms">답글보기</a>(<%= revw.replies.count %>)-->
                     <% if revw.review_writer === current_user.email %>
