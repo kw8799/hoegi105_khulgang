@@ -429,7 +429,7 @@
         </div>
         
         <!-- 리뷰출력 -->
-        <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, updated_at DESC").each do |revw| %>
+        <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, created_at DESC").each do |revw| %>
         <div class="upperrow">
         <div class="row row-com" align="center">
             <div id="for-profile-image" class="col-xs-1">
