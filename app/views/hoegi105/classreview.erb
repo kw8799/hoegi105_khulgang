@@ -335,17 +335,17 @@
           <!--별점만 준 경우  -->
           <% if Review.where.not(eval_star: nil).exists?(:classofhot_id => params[:id], :review_writer => @useremail, :review_content => nil) %>
             <button ontouchstart:"" id="button_rating2" type="button" class="btnradone btn btn-default">
-                            <span class ="label6 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span><br><p class = bttext>수정가능</p>
-
+              <span class ="label6 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span><br><p class = bttext>수정가능</p>
             </button>
+              
               <script>
-                                 var me = document.querySelector("#button_rating2");
-                                $(me).click(function() {
-                                
-                                var you = document.querySelector("#itsyou4");
-                                    you.style.height = '75vw';
-                                
-                        });</script>
+                var me = document.querySelector("#button_rating2");
+                $(me).click(function() {
+                  var you = document.querySelector("#itsyou4");
+                    you.style.height = '75vw';
+                });
+              </script>
+              
             <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
               <span class= "reviewwriting glyphicon glyphicon-pencil"></span>
               <p class = "smalltext1">  평가쓰기</p>
@@ -429,7 +429,7 @@
         </div>
         
         <!-- 리뷰출력 -->
-        <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, created_at DESC").each do |revw| %>
+        <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, _dislike, created_at").each do |revw| %>
         <div class="upperrow">
         <div class="row row-com" align="center">
             <div id="for-profile-image" class="col-xs-1">
