@@ -66,11 +66,11 @@
                 
                 // var other = document.getElementById(1).querySelector("#itsme");
                 
-                if(you.style.height != '60vw'){
-                    you.style.height = '60vw';
+                if(you.style.height != '75vw'){
+                    you.style.height = '75vw';
                    other.style.height = '0vw';
                 }
-                else if(you.style.height == '60vw') {
+                else if(you.style.height == '75vw') {
                     you.style.height = '0vw';
                 }
                 else{
@@ -92,6 +92,7 @@
     <!--우측 메뉴 버튼으로 불러오는 페이지 -->
     <nav id = 'itswho' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" id="cbp-spmenu-s4">
       <a class="rmenu" href="/hoegi105/myreview">나의평가</a>
+      <a class="rmenu" href="/hoegi105/pokedex">포켓몬도감</a>
       <%= link_to "정보수정", edit_user_registration_path, class: "rmenu"%>
       <a class="rmenu" href="/logout">로그아웃</a>
       <a class="rmenu" id="closer">닫기</a>
@@ -103,7 +104,7 @@
               you.style.height = '0vw';
                                 });
         </script>
-            
+        
     </nav>
   </div>
     
@@ -241,6 +242,7 @@
   </nav>
 </div>
   <% end %>
+  </form>
 <% else %>
 <% end %>
 <%= yield %>

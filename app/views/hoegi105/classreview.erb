@@ -1,1014 +1,1216 @@
 <div class="page-ex" align="center"></div>
-                
-    <div id="panel-ex" class="panel panel-default">
-        <h4 class="text-ex"><%= @lecture.lecture_title %></h4>
-        
-        <h4 class="text-ex2"><%= @lecture.typeof_lecture %> &nbsp; &nbsp; &nbsp; <%= @lecture.professor_name%></h4>
-        
-        <!--<h4 class="text-ex2">-->
-        <!--  <% @major.each do |f| %>-->
-        <!--    <%= f.major_title %><br>-->
-        <!--  <% end %>-->
-        <!--</h4>-->
-        
-        <!-- 평점의 평균값 도출! -->
-        <input id="com-star" class="rating form-control hide"  data-size="xl" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= @averagecomft_grade.round(1) %>">
-        <!--태그색상--> 
-        <div class="takespans">
-            
-            <% if @representacademic == nil || @representeasy == nil || @representgrade == nil %>
-              
-              
-              <span class="label-tag-big label-none">평가없음</span>
-            <% else %>
-            
-              
-              
-                <!-- 파이 차트 실험중 -->
-                <div class="pietaker">
-                <div class="piecontainer"align="center">  
-                  <div class="piebackground"></div>
-                  <div id="pieSlice1" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice2" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice3" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice4" class="hold"><div class="pie"></div></div>
-                  <div class="smallpiecover"><div class="textcover">학점</div></div>
-                  <div class="chartbar">
-                      <div class="cb cb1">나쁨</div>
-                      <div class="cb cb2">보통</div>
-                      <div class="cb cb3">좋음</div>
-                    </div>
-                </div>
-                
-                
-                 
-                <div class="piecontainer" align="center">  
-                  <div class="piebackground"></div>
-                  <div id="pieSlice5" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice6" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice7" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice8" class="hold"><div class="pie"></div></div>
-                  <div class="smallpiecover"><div class="textcover">편함</div></div>
-                                 <div class="chartbar">
-                      <div class="cb cb4">나쁨</div>
-                      <div class="cb cb5">보통</div>
-                      <div class="cb cb6">좋음</div>
-                  </div>
-                </div>
-                
-                 
-                <div class="piecontainer"align="center">  
-                  <div class="piebackground" ></div>
-                  <div id="pieSlice9" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice10" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice11" class="hold"><div class="pie"></div></div>
-                  <div id="pieSlice12" class="hold"><div class="pie"></div></div>
-                  <div class="smallpiecover"><div class="textcover">배움</div></div>
-                                    <div class="chartbar">
-                      <div class="cb cb7">나쁨</div>
-                      <div class="cb cb8">보통</div>
-                      <div class="cb cb9">좋음</div>
-                  </div>
-                </div>
-                
-                </div>
-                <script>
-                
-                  var pie1Val = <%= @lecture.reviews.where(:eval_grade => 3).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie2Val = <%= @lecture.reviews.where(:eval_grade => 2).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie3Val = <%= @lecture.reviews.where(:eval_grade => 1).count %> * 360 / <%= @lecture.reviews.count %>;
-                  
-                  var pie1 = document.querySelector("#pieSlice1");
-                      pie1.querySelector(".pie").style.backgroundColor = '#9C376B';
-                      
-                      pie2 = document.querySelector("#pieSlice2");
-                      pie2.querySelector(".pie").style.backgroundColor = '#ff479c';
-                      
-                      pie3 = document.querySelector("#pieSlice3");
-                      pie3.querySelector(".pie").style.backgroundColor = '#ffa1dd';
-                      
-                      pie4 = document.querySelector("#pieSlice4");
-                      pie4.querySelector(".pie").style.backgroundColor = "black";
-        
-                     
-                      
-                  if (pie1Val > 180)
-                  {  
-                      pie1.style.transform = 'rotate('+0+'deg)';
-                      pie1.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie4.style.transform = 'rotate('+180+'deg)';
-                      pie4.querySelector(".pie").style.transform = 'rotate('+(pie1Val-180)+'deg)';
-                      pie4.querySelector(".pie").style.backgroundColor = "#9C376B";
-                      
-                      pie2.style.transform = 'rotate('+pie1Val+'deg)';
-                      pie2.querySelector(".pie").style.transform = 'rotate('+(pie2Val)+'deg)';
-                      
-                      pie3.style.transform = 'rotate('+(pie1Val+pie2Val)+'deg)';
-                      pie3.querySelector(".pie").style.transform = 'rotate('+(pie3Val)+'deg)';
-                  }
-                  
-                  else if (pie2Val > 180)
-                  {  
-                      pie2.style.transform = 'rotate('+0+'deg)';
-                      pie2.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie4.style.transform = 'rotate('+180+'deg)';
-                      pie4.querySelector(".pie").style.transform = 'rotate('+(pie2Val-180)+'deg)';
-                      pie4.querySelector(".pie").style.backgroundColor = '#ff479c';
-                      
-                      pie3.style.transform = 'rotate('+pie2Val+'deg)';
-                      pie3.querySelector(".pie").style.transform = 'rotate('+(pie3Val)+'deg)';
-                      
-                      pie1.style.transform = 'rotate('+(pie3Val+pie2Val)+'deg)';
-                      pie1.querySelector(".pie").style.transform = 'rotate('+(pie1Val)+'deg)';
-                  }
-                  
-                  else if (pie3Val > 180)
-                  {  
-                      pie3.style.transform = 'rotate('+0+'deg)';
-                      pie3.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie4.style.transform = 'rotate('+180+'deg)';
-                      pie4.querySelector(".pie").style.transform = 'rotate('+(pie3Val-180)+'deg)';
-                      pie4.querySelector(".pie").style.backgroundColor = '#ffa1dd';
-                      
-                      pie1.style.transform = 'rotate('+pie3Val+'deg)';
-                      pie1.querySelector(".pie").style.transform = 'rotate('+(pie1Val)+'deg)';
-                      
-                      pie2.style.transform = 'rotate('+(pie3Val+pie1Val)+'deg)';
-                      pie2.querySelector(".pie").style.transform = 'rotate('+(pie2Val)+'deg)';
-                  }
-                  
-                  else{
-                     pie1.style.transform = 'rotate('+0+'deg)';
-                      pie1.querySelector(".pie").style.transform = 'rotate('+pie1Val+'deg)';
-                      
-                      pie2.style.transform = 'rotate('+pie1Val+'deg)';
-                      pie2.querySelector(".pie").style.transform = 'rotate('+pie2Val+'deg)';
-                      
-                      pie3.style.transform = 'rotate('+(pie1Val+pie2Val)+'deg)';
-                      pie3.querySelector(".pie").style.transform = 'rotate('+pie3Val+'deg)';
-                      
-                      pie4.style.transform = 'rotate('+0+'deg)';
-                      pie4.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
-                  }
-                  
-                  var pie5Val = <%= @lecture.reviews.where(:eval_easy => 3).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie6Val = <%= @lecture.reviews.where(:eval_easy => 2).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie7Val = <%= @lecture.reviews.where(:eval_easy => 1).count %> * 360 / <%= @lecture.reviews.count %>;
-                  
-                  var pie5 = document.querySelector("#pieSlice5");
-                      pie5.querySelector(".pie").style.backgroundColor = '#218AB0';
-                      
-                      pie6 = document.querySelector("#pieSlice6");
-                      pie6.querySelector(".pie").style.backgroundColor = '#00B9FF';
-                      
-                      pie7 = document.querySelector("#pieSlice7");
-                      pie7.querySelector(".pie").style.backgroundColor = '#7CDDFF';
-                      
-                      pie8 = document.querySelector("#pieSlice8");
-                      pie8.querySelector(".pie").style.backgroundColor = "black";
-                      
-                     
-                      
-                  if (pie5Val > 180)
-                  {  
-                      pie5.style.transform = 'rotate('+0+'deg)';
-                      pie5.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie8.style.transform = 'rotate('+180+'deg)';
-                      pie8.querySelector(".pie").style.transform = 'rotate('+(pie5Val-180)+'deg)';
-                      pie8.querySelector(".pie").style.backgroundColor = "#218AB0";
-                      
-                      pie6.style.transform = 'rotate('+pie5Val+'deg)';
-                      pie6.querySelector(".pie").style.transform = 'rotate('+(pie6Val)+'deg)';
-                      
-                      pie7.style.transform = 'rotate('+(pie5Val+pie6Val)+'deg)';
-                      pie7.querySelector(".pie").style.transform = 'rotate('+(pie7Val)+'deg)';
-                  }
-                  
-                  else if (pie6Val > 180)
-                  {  
-                      pie6.style.transform = 'rotate('+0+'deg)';
-                      pie6.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie8.style.transform = 'rotate('+180+'deg)';
-                      pie8.querySelector(".pie").style.transform = 'rotate('+(pie6Val-180)+'deg)';
-                      pie8.querySelector(".pie").style.backgroundColor = '#00B9FF';
-                      
-                      pie7.style.transform = 'rotate('+pie6Val+'deg)';
-                      pie7.querySelector(".pie").style.transform = 'rotate('+(pie7Val)+'deg)';
-                      
-                      pie5.style.transform = 'rotate('+(pie6Val+pie7Val)+'deg)';
-                      pie5.querySelector(".pie").style.transform = 'rotate('+(pie5Val)+'deg)';
-                  }
-                  
-                  else if (pie7Val > 180)
-                  {  
-                      pie7.style.transform = 'rotate('+0+'deg)';
-                      pie7.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie8.style.transform = 'rotate('+180+'deg)';
-                      pie8.querySelector(".pie").style.transform = 'rotate('+(pie7Val-180)+'deg)';
-                      pie8.querySelector(".pie").style.backgroundColor = '#7CDDFF';
-                      
-                      pie5.style.transform = 'rotate('+pie7Val+'deg)';
-                      pie5.querySelector(".pie").style.transform = 'rotate('+(pie5Val)+'deg)';
-                      
-                      pie6.style.transform = 'rotate('+(pie7Val+pie5Val)+'deg)';
-                      pie6.querySelector(".pie").style.transform = 'rotate('+(pie6Val)+'deg)';
-                  }
-                  
-                  else{
-                     pie5.style.transform = 'rotate('+0+'deg)';
-                      pie5.querySelector(".pie").style.transform = 'rotate('+pie5Val+'deg)';
-                      
-                      pie6.style.transform = 'rotate('+pie5Val+'deg)';
-                      pie6.querySelector(".pie").style.transform = 'rotate('+pie6Val+'deg)';
-                      
-                      pie7.style.transform = 'rotate('+(pie5Val+pie6Val)+'deg)';
-                      pie7.querySelector(".pie").style.transform = 'rotate('+pie7Val+'deg)';
-                      
-                      pie8.style.transform = 'rotate('+0+'deg)';
-                      pie8.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
-                  }
-                  
-                  var pie9Val = <%= @lecture.reviews.where(:eval_academic => 3).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie10Val = <%= @lecture.reviews.where(:eval_academic => 2).count %> * 360 / <%= @lecture.reviews.count %>;
-                  var pie11Val = <%= @lecture.reviews.where(:eval_academic => 1).count %> * 360 / <%= @lecture.reviews.count %>;
-                  
-                  var pie9 = document.querySelector("#pieSlice9");
-                      pie9.querySelector(".pie").style.backgroundColor = '#C18D34';
-                      
-                      pie10 = document.querySelector("#pieSlice10");
-                      pie10.querySelector(".pie").style.backgroundColor = '#FFBE00';
-                      
-                      pie11 = document.querySelector("#pieSlice11");
-                      pie11.querySelector(".pie").style.backgroundColor = '#FFE29A';
-                      
-                      pie12 = document.querySelector("#pieSlice12");
-                      pie12.querySelector(".pie").style.backgroundColor = "black";
-                      
-                     
-                      
-                  if (pie9Val > 180)
-                  {  
-                      pie9.style.transform = 'rotate('+0+'deg)';
-                      pie9.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie12.style.transform = 'rotate('+180+'deg)';
-                      pie12.querySelector(".pie").style.transform = 'rotate('+(pie9Val-180)+'deg)';
-                      pie12.querySelector(".pie").style.backgroundColor = "#C18D34";
-                      
-                      
-                      pie10.style.transform = 'rotate('+pie9Val+'deg)';
-                      pie10.querySelector(".pie").style.transform = 'rotate('+(pie10Val)+'deg)';
-                      
-                      pie11.style.transform = 'rotate('+(pie9Val+pie10Val)+'deg)';
-                      pie11.querySelector(".pie").style.transform = 'rotate('+(pie11Val)+'deg)';
-                  }
-                  
-                  else if (pie10Val > 180)
-                  {  
-                      pie10.style.transform = 'rotate('+0+'deg)';
-                      pie10.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie12.style.transform = 'rotate('+180+'deg)';
-                      pie12.querySelector(".pie").style.transform = 'rotate('+(pie10Val-180)+'deg)';
-                      pie12.querySelector(".pie").style.backgroundColor = '#FFBE00';
-                      
-                      pie11.style.transform = 'rotate('+pie10Val+'deg)';
-                      pie11.querySelector(".pie").style.transform = 'rotate('+(pie11Val)+'deg)';
-                      
-                      pie9.style.transform = 'rotate('+(pie10Val+pie11Val)+'deg)';
-                      pie9.querySelector(".pie").style.transform = 'rotate('+(pie9Val)+'deg)';
-                  }
-                  
-                  else if (pie11Val > 180)
-                  {  
-                      pie11.style.transform = 'rotate('+0+'deg)';
-                      pie11.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
-                      
-                      pie12.style.transform = 'rotate('+180+'deg)';
-                      pie12.querySelector(".pie").style.transform = 'rotate('+(pie11Val-180)+'deg)';
-                      pie12.querySelector(".pie").style.backgroundColor = '#FFE29A';
-                      
-                      pie9.style.transform = 'rotate('+pie11Val+'deg)';
-                      pie9.querySelector(".pie").style.transform = 'rotate('+(pie9Val)+'deg)';
-                      
-                      pie10.style.transform = 'rotate('+(pie11Val+pie9Val)+'deg)';
-                      pie10.querySelector(".pie").style.transform = 'rotate('+(pie10Val)+'deg)';
-                  }
-                  
-                  else{
-                     pie9.style.transform = 'rotate('+0+'deg)';
-                      pie9.querySelector(".pie").style.transform = 'rotate('+pie9Val+'deg)';
-                      
-                      pie10.style.transform = 'rotate('+pie9Val+'deg)';
-                      pie10.querySelector(".pie").style.transform = 'rotate('+pie10Val+'deg)';
-                      
-                      pie11.style.transform = 'rotate('+(pie9Val+pie10Val)+'deg)';
-                      pie11.querySelector(".pie").style.transform = 'rotate('+pie11Val+'deg)';
-                      
-                      pie12.style.transform = 'rotate('+0+'deg)';
-                      pie12.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
-                  }
-                  
-                      
-                  </script>
-        <% end %>
-      </div>
-         <p class="popcount2"><%= @lecture.reviews.count %>명이 참여하였습니다.</p>
-        <p class="popcount2"><%= @lecture.reviews.where.not(review_content: nil).count %>개의 평가가 작성되었습니다.</p>
+<div id="panel-ex" class="panel panel-default">
+  <h4 class="text-ex"><%= @lecture.lecture_title %></h4>
+  <h4 class="text-ex2"><%= @lecture.typeof_lecture %> &nbsp; &nbsp; &nbsp; <%= @lecture.professor_name%></h4>
+  
+  <!--<h4 class="text-ex2">-->
+  <!--  <% @major.each do |f| %>-->
+  <!--    <%= f.major_title %><br>-->
+  <!--  <% end %>-->
+  <!--</h4>-->
+  
+  <!-- 평점의 평균값 도출! -->
+  <input id="com-star" class="rating form-control hide"  data-size="xl" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= @averagecomft_grade.round(1) %>">
+  <!--태그색상--> 
+  <div class="takespans">
+      
+    <% if @representacademic == nil || @representeasy == nil || @representgrade == nil %>
+      
+      <span class="label-tag-big label-none">평가없음</span>
     
-    <div id="com-panel" class="com-text" align="center">
-        <div>
-            <!--고정형 하단 바 <nav class="navbar navbar-default navbar-fixed-bottom">
-              <div class="container">
-              </div>
-            </nav>-->
-          <div id="rev_bar" class="btn-group" role="group" align="center">
-            
-            <!--동시조건을 만족하는 거 찾기 (not nil)-->
-          
-          <!--별점만 준 경우  -->
-          <% if Review.where.not(eval_star: nil).exists?(:classofhot_id => params[:id], :review_writer => @useremail, :review_content => nil) %>
-            <button ontouchstart:"" id="button_rating2" type="button" class="btnradone btn btn-default">
-              <span class ="label6 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span><br><p class = bttext>수정가능</p>
-            </button>
-              
-              <script>
-                var me = document.querySelector("#button_rating2");
-                $(me).click(function() {
-                  var you = document.querySelector("#itsyou4");
-                    you.style.height = '75vw';
-                });
-              </script>
-              
-            <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
-              <span class= "reviewwriting glyphicon glyphicon-pencil"></span>
-              <p class = "smalltext1">  평가쓰기</p>
-            </button>
-                <script>
-                                 var me = document.querySelector("#button_review");
-                                $(me).click(function() {
-                                
-                                var you = document.querySelector("#itsyou2");
-                                    you.style.height = '115vw';
-                                /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
-                                 you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
-                                else{
-                                  you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
-                                }*/
-                                
-                        });</script>
-            <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
-              <span class= "glyphicon glyphicon-heart"></span>
-              <p class = "smalltext2">  관심과목</p>
-            </button>
-            
-          <!--코멘트까지 준 경우-->
-          <% elsif Review.where.not(review_content: nil).exists?(:classofhot_id => params[:id], :review_writer => @useremail) %>
-            <button ontouchstart:"" id="button_rating" type="button" class="btndone btn btn-default">
-              
-              <span class ="label5 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span><br><p class = bttext>평가완료</p>
-            </button>
-            <button ontouchstart:"" id="button_review" type="button" class="btndone btn btn-default">
-              평가완료
-            </button>
-            <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
-              <span class="glyphicon glyphicon-heart"></span>
-              <p class = "smalltext2">  관심과목</p>
-            </button>
-            
-          <!--별점&코멘트 모두 작성하지 않은 경우-->
-          <% else %>
-            <button ontouchstart:"" id="button_rating" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-star"></span>
-              <p class = "smalltext">  별점주기</p>
-            </button>
-                 <script>
-                                 var me = document.querySelector("#button_rating");
-                                $(me).click(function() {
-                                
-                                var you = document.querySelector("#itsyou3");
-                                    you.style.height = '75vw';
-                                /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
-                                 you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
-                                else{
-                                  you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
-                                }*/
-                                
-                        });</script>
-            <button ontouchstart="" id="button_review1" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-pencil"></span>
-              <p class = "smalltext1">  평가쓰기</p>
-
-            </button>
-              <script>
-                                 var me = document.querySelector("#button_review1");
-                                $(me).click(function() {
-                                
-                                var you = document.querySelector("#itsyou");
-                                    you.style.height = '115vw';
-                                /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
-                                 you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
-                                else{
-                                  you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
-                                }*/
-                                
-                        });</script>
-            <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-heart"></span>
-              <p class = "smalltext2">관심과목</p>
-            </button>
-            
-          <% end %>
+    <% else %>
+    
+  <!-- 파이 차트 시작 -->
+      <div class="pietaker">
+        <div class="piecontainer"align="center">  
+          <div class="piebackground"></div>
+          <div id="pieSlice1" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice2" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice3" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice4" class="hold"><div class="pie"></div></div>
+          <div class="smallpiecover"><div class="textcover">학점</div></div>
+          <div class="chartbar">
+              <div class="cb cb1">나쁨</div>
+              <div class="cb cb2">보통</div>
+              <div class="cb cb3">좋음</div>
+            </div>
+        </div>
+        <div class="piecontainer" align="center">  
+          <div class="piebackground"></div>
+          <div id="pieSlice5" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice6" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice7" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice8" class="hold"><div class="pie"></div></div>
+          <div class="smallpiecover"><div class="textcover">편함</div></div>
+          <div class="chartbar">
+              <div class="cb cb4">나쁨</div>
+              <div class="cb cb5">보통</div>
+              <div class="cb cb6">좋음</div>
           </div>
         </div>
+        <div class="piecontainer"align="center">  
+          <div class="piebackground" ></div>
+          <div id="pieSlice9" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice10" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice11" class="hold"><div class="pie"></div></div>
+          <div id="pieSlice12" class="hold"><div class="pie"></div></div>
+          <div class="smallpiecover"><div class="textcover">배움</div></div>
+          <div class="chartbar">
+              <div class="cb cb7">나쁨</div>
+              <div class="cb cb8">보통</div>
+              <div class="cb cb9">좋음</div>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+      
+        var pie1Val = <%= @lecture.reviews.where(:eval_grade => 3).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie2Val = <%= @lecture.reviews.where(:eval_grade => 2).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie3Val = <%= @lecture.reviews.where(:eval_grade => 1).count %> * 360 / <%= @lecture.reviews.count %>;
         
-        <!-- 리뷰출력 -->
-        <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, _dislike, created_at").each do |revw| %>
-        <div class="upperrow">
-        <div class="row row-com" align="center">
-            <div id="for-profile-image" class="col-xs-1">
-                <div class="profile-image"><img class="profile-image"src="/assets/<%= revw.picture %>.png"></div>
-                <% if revw.review_writer == current_user.email %>
-                  <img src="/assets/ball.jpg" style="height: 25px; margin-top:20px" align="center">
-                <% else %>
-                <% end %>
-            </div>
-            <div id="com-others" class="col-xs-10" align="center">
-                    <div class="row row-com-inner-1">
-                        <div class="col-xs-4" id="com-panel2" align="left">
-                            <p class="com-writer"><%= revw.picture %></p>
-                        </div>
-                        <div class="col-xs-4" id="com-panel3" align="left">
-                            <!--작성자가 매긴 별점-->
-                            <input id="com-star" class="rating form-control hide"  data-size="xs" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= revw.eval_star %>">
-                        </div>
-                        
-                        <!--좋아요/싫어요-->
-                        <div class="col-xs-4" id="com-panel-like" align ="right">
-                             <div class="btn-group-vertical" role="group" aria-label="..." align="right">
-                                <label id="com-box" class="btn btn-default">
-                                    
-                                    <!--좋아요 누른 경우-->
-                                    <% if Proscon.where(:review_id => revw.id).exists?(:agree_user => @useremail, :disagree_user => nil) %>
-                                      <a href='/hoegi105/like_cancel/<%= revw.id %>'>
-                                      <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:disagree_user => nil).count %>
-                                      </a>&nbsp; &nbsp;
-                                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:agree_user => nil).count %>
-                                    
-                                    <!--싫어요 누른 경우-->
-                                    <% elsif Proscon.where(:review_id => revw.id).exists?(:agree_user => nil, :disagree_user => @useremail) %>
-                                      <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:disagree_user => nil).count %>
-                                      &nbsp; &nbsp;
-                                      <a href='/hoegi105/dislike_cancel/<%= revw.id %>'>
-                                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:agree_user => nil).count %>
-                                      </a>
-                                    
-                                    <!--아무것도 안 누른 경우-->
-                                    <% else %>
-                                      <a href='/hoegi105/like/<%= revw.id %>'>
-                                      <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:disagree_user => nil).count %>
-                                      </a>&nbsp; &nbsp;
-                                      <a href='/hoegi105/dislike/<%= revw.id %>'>
-                                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                      <%= revw.proscons.where(:agree_user => nil).count %>
-                                      </a>
-                                    <% end %>
-                                    
-                                </label>   
-                            </div>
-                        </div>
-                        
-                    </div>
-                <div class="row row-com-inner" align="left">
-                    <%= simple_format(revw.review_content, :class => "com-context") %>
-                    <!--태그색상--> 
-                    <span class="label-tag label-danger">
-                      <% if revw.eval_grade == 3 %>학점느님
-                      <% elsif revw.eval_grade == 2 %>원칙대로
-                      <% else %> 학점폭격
-                      <% end %>
-                    </span> &nbsp;
-                    <span class="label-tag label-g2">
-                      <% if revw.eval_easy == 3 %> 편해요
-                      <% elsif revw.eval_easy == 2 %> 버틸만함
-                      <% else %> 개피곤
-                      <% end %>
-                    </span> &nbsp;
-                    <span class="label-tag label-warning">
-                      <% if revw.eval_academic == 3 %> 인생강의
-                      <% elsif revw.eval_academic == 2 %> 평타강의
-                      <% else %> 쓰레기수업
-                      <% end %>
-                    </span>
-                </div>
-                <div class="row row-com-inner2" align="left">
-                    <p class="com-more">
-                      <% if ((Time.now - revw.created_at)/60)<1 %>
-                        방금
-                      <% elsif ((Time.now - revw.created_at)/3600)<=1 %>
-                       <%=((Time.now - revw.created_at)/60).round %> 분 전
-                       <% elsif ((Time.now - revw.created_at)/3600)<=24 %>
-                        <%= ((Time.now - revw.created_at)/3600).round %> 시간 전
-                      <%elsif ((Time.now - revw.created_at)/3600/24).round == 1%>
-                        하루 전
-                       <% elsif ((Time.now - revw.created_at)/3600)<=24*7 %>
-                         <%= ((Time.now - revw.created_at)/3600/24).round %> 일 전
-                       <% else %>
-                        <%= revw.created_at.strftime("%-m월 %-e일") %>
-                       <% end %>
-                    <!--<a href="/hoegi105/reply/<%= revw.id %>" class="show-more-coms">답글보기</a>(<%= revw.replies.count %>)-->
-                    <% if revw.review_writer === current_user.email %>
-                        <!--<button type="button" id="com-box" class="btn btn-default"><a href="/hoegi105/review_delete/<%= revw.id %>">삭제</a></button>-->
-                    <% end %>
-                    </p>
-                </div>
-            </div>
-    
-        </div>
+        var pie1 = document.querySelector("#pieSlice1");
+            pie1.querySelector(".pie").style.backgroundColor = '#9C376B';
+            
+            pie2 = document.querySelector("#pieSlice2");
+            pie2.querySelector(".pie").style.backgroundColor = '#ff479c';
+            
+            pie3 = document.querySelector("#pieSlice3");
+            pie3.querySelector(".pie").style.backgroundColor = '#ffa1dd';
+            
+            pie4 = document.querySelector("#pieSlice4");
+            pie4.querySelector(".pie").style.backgroundColor = "black";
+
+           
+            
+        if (pie1Val > 180)
+        {  
+            pie1.style.transform = 'rotate('+0+'deg)';
+            pie1.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie4.style.transform = 'rotate('+180+'deg)';
+            pie4.querySelector(".pie").style.transform = 'rotate('+(pie1Val-180)+'deg)';
+            pie4.querySelector(".pie").style.backgroundColor = "#9C376B";
+            
+            pie2.style.transform = 'rotate('+pie1Val+'deg)';
+            pie2.querySelector(".pie").style.transform = 'rotate('+(pie2Val)+'deg)';
+            
+            pie3.style.transform = 'rotate('+(pie1Val+pie2Val)+'deg)';
+            pie3.querySelector(".pie").style.transform = 'rotate('+(pie3Val)+'deg)';
+        }
+        
+        else if (pie2Val > 180)
+        {  
+            pie2.style.transform = 'rotate('+0+'deg)';
+            pie2.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie4.style.transform = 'rotate('+180+'deg)';
+            pie4.querySelector(".pie").style.transform = 'rotate('+(pie2Val-180)+'deg)';
+            pie4.querySelector(".pie").style.backgroundColor = '#ff479c';
+            
+            pie3.style.transform = 'rotate('+pie2Val+'deg)';
+            pie3.querySelector(".pie").style.transform = 'rotate('+(pie3Val)+'deg)';
+            
+            pie1.style.transform = 'rotate('+(pie3Val+pie2Val)+'deg)';
+            pie1.querySelector(".pie").style.transform = 'rotate('+(pie1Val)+'deg)';
+        }
+        
+        else if (pie3Val > 180)
+        {  
+            pie3.style.transform = 'rotate('+0+'deg)';
+            pie3.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie4.style.transform = 'rotate('+180+'deg)';
+            pie4.querySelector(".pie").style.transform = 'rotate('+(pie3Val-180)+'deg)';
+            pie4.querySelector(".pie").style.backgroundColor = '#ffa1dd';
+            
+            pie1.style.transform = 'rotate('+pie3Val+'deg)';
+            pie1.querySelector(".pie").style.transform = 'rotate('+(pie1Val)+'deg)';
+            
+            pie2.style.transform = 'rotate('+(pie3Val+pie1Val)+'deg)';
+            pie2.querySelector(".pie").style.transform = 'rotate('+(pie2Val)+'deg)';
+        }
+        
+        else{
+           pie1.style.transform = 'rotate('+0+'deg)';
+            pie1.querySelector(".pie").style.transform = 'rotate('+pie1Val+'deg)';
+            
+            pie2.style.transform = 'rotate('+pie1Val+'deg)';
+            pie2.querySelector(".pie").style.transform = 'rotate('+pie2Val+'deg)';
+            
+            pie3.style.transform = 'rotate('+(pie1Val+pie2Val)+'deg)';
+            pie3.querySelector(".pie").style.transform = 'rotate('+pie3Val+'deg)';
+            
+            pie4.style.transform = 'rotate('+0+'deg)';
+            pie4.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
+        }
+        
+        var pie5Val = <%= @lecture.reviews.where(:eval_easy => 3).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie6Val = <%= @lecture.reviews.where(:eval_easy => 2).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie7Val = <%= @lecture.reviews.where(:eval_easy => 1).count %> * 360 / <%= @lecture.reviews.count %>;
+        
+        var pie5 = document.querySelector("#pieSlice5");
+            pie5.querySelector(".pie").style.backgroundColor = '#218AB0';
+            
+            pie6 = document.querySelector("#pieSlice6");
+            pie6.querySelector(".pie").style.backgroundColor = '#00B9FF';
+            
+            pie7 = document.querySelector("#pieSlice7");
+            pie7.querySelector(".pie").style.backgroundColor = '#7CDDFF';
+            
+            pie8 = document.querySelector("#pieSlice8");
+            pie8.querySelector(".pie").style.backgroundColor = "black";
+            
+           
+            
+        if (pie5Val > 180)
+        {  
+            pie5.style.transform = 'rotate('+0+'deg)';
+            pie5.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie8.style.transform = 'rotate('+180+'deg)';
+            pie8.querySelector(".pie").style.transform = 'rotate('+(pie5Val-180)+'deg)';
+            pie8.querySelector(".pie").style.backgroundColor = "#218AB0";
+            
+            pie6.style.transform = 'rotate('+pie5Val+'deg)';
+            pie6.querySelector(".pie").style.transform = 'rotate('+(pie6Val)+'deg)';
+            
+            pie7.style.transform = 'rotate('+(pie5Val+pie6Val)+'deg)';
+            pie7.querySelector(".pie").style.transform = 'rotate('+(pie7Val)+'deg)';
+        }
+        
+        else if (pie6Val > 180)
+        {  
+            pie6.style.transform = 'rotate('+0+'deg)';
+            pie6.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie8.style.transform = 'rotate('+180+'deg)';
+            pie8.querySelector(".pie").style.transform = 'rotate('+(pie6Val-180)+'deg)';
+            pie8.querySelector(".pie").style.backgroundColor = '#00B9FF';
+            
+            pie7.style.transform = 'rotate('+pie6Val+'deg)';
+            pie7.querySelector(".pie").style.transform = 'rotate('+(pie7Val)+'deg)';
+            
+            pie5.style.transform = 'rotate('+(pie6Val+pie7Val)+'deg)';
+            pie5.querySelector(".pie").style.transform = 'rotate('+(pie5Val)+'deg)';
+        }
+        
+        else if (pie7Val > 180)
+        {  
+            pie7.style.transform = 'rotate('+0+'deg)';
+            pie7.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie8.style.transform = 'rotate('+180+'deg)';
+            pie8.querySelector(".pie").style.transform = 'rotate('+(pie7Val-180)+'deg)';
+            pie8.querySelector(".pie").style.backgroundColor = '#7CDDFF';
+            
+            pie5.style.transform = 'rotate('+pie7Val+'deg)';
+            pie5.querySelector(".pie").style.transform = 'rotate('+(pie5Val)+'deg)';
+            
+            pie6.style.transform = 'rotate('+(pie7Val+pie5Val)+'deg)';
+            pie6.querySelector(".pie").style.transform = 'rotate('+(pie6Val)+'deg)';
+        }
+        
+        else{
+           pie5.style.transform = 'rotate('+0+'deg)';
+            pie5.querySelector(".pie").style.transform = 'rotate('+pie5Val+'deg)';
+            
+            pie6.style.transform = 'rotate('+pie5Val+'deg)';
+            pie6.querySelector(".pie").style.transform = 'rotate('+pie6Val+'deg)';
+            
+            pie7.style.transform = 'rotate('+(pie5Val+pie6Val)+'deg)';
+            pie7.querySelector(".pie").style.transform = 'rotate('+pie7Val+'deg)';
+            
+            pie8.style.transform = 'rotate('+0+'deg)';
+            pie8.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
+        }
+        
+        var pie9Val = <%= @lecture.reviews.where(:eval_academic => 3).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie10Val = <%= @lecture.reviews.where(:eval_academic => 2).count %> * 360 / <%= @lecture.reviews.count %>;
+        var pie11Val = <%= @lecture.reviews.where(:eval_academic => 1).count %> * 360 / <%= @lecture.reviews.count %>;
+        
+        var pie9 = document.querySelector("#pieSlice9");
+            pie9.querySelector(".pie").style.backgroundColor = '#C18D34';
+            
+            pie10 = document.querySelector("#pieSlice10");
+            pie10.querySelector(".pie").style.backgroundColor = '#FFBE00';
+            
+            pie11 = document.querySelector("#pieSlice11");
+            pie11.querySelector(".pie").style.backgroundColor = '#FFE29A';
+            
+            pie12 = document.querySelector("#pieSlice12");
+            pie12.querySelector(".pie").style.backgroundColor = "black";
+            
+           
+            
+        if (pie9Val > 180)
+        {  
+            pie9.style.transform = 'rotate('+0+'deg)';
+            pie9.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie12.style.transform = 'rotate('+180+'deg)';
+            pie12.querySelector(".pie").style.transform = 'rotate('+(pie9Val-180)+'deg)';
+            pie12.querySelector(".pie").style.backgroundColor = "#C18D34";
+            
+            
+            pie10.style.transform = 'rotate('+pie9Val+'deg)';
+            pie10.querySelector(".pie").style.transform = 'rotate('+(pie10Val)+'deg)';
+            
+            pie11.style.transform = 'rotate('+(pie9Val+pie10Val)+'deg)';
+            pie11.querySelector(".pie").style.transform = 'rotate('+(pie11Val)+'deg)';
+        }
+        
+        else if (pie10Val > 180)
+        {  
+            pie10.style.transform = 'rotate('+0+'deg)';
+            pie10.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie12.style.transform = 'rotate('+180+'deg)';
+            pie12.querySelector(".pie").style.transform = 'rotate('+(pie10Val-180)+'deg)';
+            pie12.querySelector(".pie").style.backgroundColor = '#FFBE00';
+            
+            pie11.style.transform = 'rotate('+pie10Val+'deg)';
+            pie11.querySelector(".pie").style.transform = 'rotate('+(pie11Val)+'deg)';
+            
+            pie9.style.transform = 'rotate('+(pie10Val+pie11Val)+'deg)';
+            pie9.querySelector(".pie").style.transform = 'rotate('+(pie9Val)+'deg)';
+        }
+        
+        else if (pie11Val > 180)
+        {  
+            pie11.style.transform = 'rotate('+0+'deg)';
+            pie11.querySelector(".pie").style.transform = 'rotate('+180+'deg)';
+            
+            pie12.style.transform = 'rotate('+180+'deg)';
+            pie12.querySelector(".pie").style.transform = 'rotate('+(pie11Val-180)+'deg)';
+            pie12.querySelector(".pie").style.backgroundColor = '#FFE29A';
+            
+            pie9.style.transform = 'rotate('+pie11Val+'deg)';
+            pie9.querySelector(".pie").style.transform = 'rotate('+(pie9Val)+'deg)';
+            
+            pie10.style.transform = 'rotate('+(pie11Val+pie9Val)+'deg)';
+            pie10.querySelector(".pie").style.transform = 'rotate('+(pie10Val)+'deg)';
+        }
+        
+        else{
+           pie9.style.transform = 'rotate('+0+'deg)';
+            pie9.querySelector(".pie").style.transform = 'rotate('+pie9Val+'deg)';
+            
+            pie10.style.transform = 'rotate('+pie9Val+'deg)';
+            pie10.querySelector(".pie").style.transform = 'rotate('+pie10Val+'deg)';
+            
+            pie11.style.transform = 'rotate('+(pie9Val+pie10Val)+'deg)';
+            pie11.querySelector(".pie").style.transform = 'rotate('+pie11Val+'deg)';
+            
+            pie12.style.transform = 'rotate('+0+'deg)';
+            pie12.querySelector(".pie").style.transform = 'rotate('+0+'deg)';
+        }
+        
+            
+      </script>
+  <!--파이 차트 끝-->
+    <% end %>
+  </div>
+  
+  <p class="popcount2"><%= @lecture.reviews.count %>명이 참여하였습니다.</p>
+  <p class="popcount2"><%= @lecture.reviews.where.not(review_content: nil).count %>개의 평가가 작성되었습니다.</p>
+  
+  <div id="com-panel" class="com-text" align="center">
+    <!--세 개 버튼 시작-->
+    <div>
+      <!--고정형 하단 바 -->
+      <!--<nav class="navbar navbar-default navbar-fixed-bottom">-->
+      <!--  <div class="container">-->
+      <!--  </div>-->
+      <!--</nav>-->
+      <div id="rev_bar" class="btn-group" role="group" align="center">
+        
+        <!--별점만 준 경우  -->
+        <% if Review.where.not(eval_star: nil).exists?(:classofhot_id => params[:id], :review_writer => @useremail, :review_content => nil) %>
+          
+          <button ontouchstart:"" id="button_rating2" type="button" class="btnradone btn btn-default">
+            <span class ="label6 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span>
+            <br><p class = "bttext">수정가능</p>
+          </button>
+            <script>
+              var me = document.querySelector("#button_rating2");
+              $(me).click(function() {
+                var you = document.querySelector("#itsyou4");
+                  you.style.height = '75vw';
+              });
+            </script>
+          
+          <button ontouchstart:"" id="button_review" type="button" class="btn btn-default" >
+            <span class= "reviewwriting glyphicon glyphicon-pencil"></span>
+            <p class = "smalltext1">평가작성</p>
+          </button>
+            <script>
+              var me = document.querySelector("#button_review");
+              $(me).click(function() {
+              
+              var you = document.querySelector("#itsyou2");
+                  you.style.height = '115vw';
+              /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
+               you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
+              else{
+                you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
+              }*/
+              });
+            </script>
+            
+          <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
+            <span class= "glyphicon glyphicon-heart"></span>
+            <p class = "smalltext2">관심과목</p>
+          </button>
+          
+        <!--코멘트까지 준 경우-->
+        <% elsif Review.where.not(review_content: nil).exists?(:classofhot_id => params[:id], :review_writer => @useremail) %>
+          
+          <button ontouchstart:"" id="button_rating" type="button" class="btndone btn btn-default">
+            <span class ="label5 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span>
+            <br><p class = "bttext">작성완료</p>
+          </button>
+          
+          <button ontouchstart:"" id="button_review" type="button" class="btndone btn btn-default">
+            <span class ="label5 label label-default">작성완료</span>
+            <p class = "bttext">수정하기</p>
+          </button>
+            <script>
+              var me = document.querySelector("#button_review");
+              $(me).click(function() {
+              
+              var you = document.querySelector("#itsyou5");
+                  you.style.height = '115vw';
+              /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
+               you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
+              else{
+                you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
+              }*/
+              });
+            </script>
+            
+          <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-heart"></span>
+            <p class = "smalltext2">관심과목</p>
+          </button>
+          
+        <!--별점&코멘트 모두 작성하지 않은 경우-->
+        <% else %>
+          <button ontouchstart:"" id="button_rating" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-star"></span>
+            <p class = "smalltext">별점주기</p>
+          </button>
+            <script>
+              var me = document.querySelector("#button_rating");
+              $(me).click(function() {
+              
+              var you = document.querySelector("#itsyou3");
+                  you.style.height = '75vw';
+              /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
+               you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
+              else{
+                you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
+              }*/
+              });
+            </script>
+            
+          <button ontouchstart="" id="button_review1" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <p class = "smalltext1">평가작성</p>
+          </button>
+            <script>
+              var me = document.querySelector("#button_review1");
+              $(me).click(function() {
+              
+              var you = document.querySelector("#itsyou");
+                  you.style.height = '115vw';
+              /*if(you.className == 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top'){
+               you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top-open');}
+              else{
+                you.setAttribute('class', 'cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top');
+              }*/
+              });
+            </script>
+            
+          <button ontouchstart:"" id="button_review" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-heart"></span>
+            <p class = "smalltext2">관심과목</p>
+          </button>
+          
         <% end %>
+        
+      </div>
+    </div>
+    <!--세 개 버튼 끝-->
+      
+      
+    <!-- 리뷰출력 -->
+    <% @lecture.reviews.where.not(review_content: nil).order("_like DESC, _dislike, created_at").each do |revw| %>
+    <div class="upperrow">
+      <div class="row row-com" align="center">
+        <!-- 프로필 영역 -->
+        <div id="for-profile-image" class="col-xs-1">
+          <div class="profile-image">
+            <img class="profile-image" src="/assets/<%= revw.picture %>.png">
+          </div>
+          <% if revw.review_writer == current_user.email %>
+            <img src="/assets/ball.jpg" style="height: 25px; margin-top:20px" align="center">
+          <% else %>
+          <% end %>
         </div>
+        
+        <!--리뷰 상단 영역-->
+        <div id="com-others" class="col-xs-10" align="center">
+          <div class="row row-com-inner-1">
+            <!--닉네임(포켓몬)-->
+            <div class="col-xs-4" id="com-panel2" align="left">
+              <p class="com-writer"><%= revw.picture %></p>
+            </div>
+            <!--별점-->
+            <div class="col-xs-4" id="com-panel3" align="left">
+              <input id="com-star" class="rating form-control hide"  data-size="xs" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= revw.eval_star %>">
+            </div>
+            <!--좋아요/싫어요-->
+            <div class="col-xs-4" id="com-panel-like" align ="right">
+              <div class="btn-group-vertical" role="group" aria-label="..." align="right">
+                <label id="com-box" class="btn btn-default">
+                    
+                  <!--좋아요 누른 경우-->
+                  <% if Proscon.where(:review_id => revw.id).exists?(:agree_user => @useremail, :disagree_user => nil) %>
+                    <a href='/hoegi105/like_cancel/<%= revw.id %>'>
+                      <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                      <%= revw.proscons.where(:disagree_user => nil).count %>
+                    </a>&nbsp; &nbsp;
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <%= revw.proscons.where(:agree_user => nil).count %>
+                  
+                  <!--싫어요 누른 경우-->
+                  <% elsif Proscon.where(:review_id => revw.id).exists?(:agree_user => nil, :disagree_user => @useremail) %>
+                    <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <%= revw.proscons.where(:disagree_user => nil).count %>
+                    &nbsp; &nbsp;
+                    <a href='/hoegi105/dislike_cancel/<%= revw.id %>'>
+                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                      <%= revw.proscons.where(:agree_user => nil).count %>
+                    </a>
+                  
+                  <!--아무것도 안 누른 경우-->
+                  <% else %>
+                    <a href='/hoegi105/like/<%= revw.id %>'>
+                      <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                      <%= revw.proscons.where(:disagree_user => nil).count %>
+                    </a>&nbsp; &nbsp;
+                    <a href='/hoegi105/dislike/<%= revw.id %>'>
+                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                      <%= revw.proscons.where(:agree_user => nil).count %>
+                    </a>
+                  <% end %>
+                    
+                </label>   
+              </div>
+            </div>
+          </div>
+          
+          <!--리뷰 중앙 영역 (리뷰 본문 & 태그)-->
+          <div class="row row-com-inner" align="left">
+            <!--리뷰 본문-->
+            <%= simple_format(revw.review_content, :class => "com-context") %>
+            <!--태그색상--> 
+            <span class="label-tag label-danger">
+              <% if revw.eval_grade == 3 %> 학점느님
+              <% elsif revw.eval_grade == 2 %> 원칙대로
+              <% else %> 학점폭격
+              <% end %>
+            </span> &nbsp;
+            <span class="label-tag label-g2">
+              <% if revw.eval_easy == 3 %> 편해요
+              <% elsif revw.eval_easy == 2 %> 버틸만함
+              <% else %> 개피곤
+              <% end %>
+            </span> &nbsp;
+            <span class="label-tag label-warning">
+              <% if revw.eval_academic == 3 %> 인생강의
+              <% elsif revw.eval_academic == 2 %> 평타강의
+              <% else %> 쓰레기수업
+              <% end %>
+            </span>
+          </div>
+          
+          <!--리뷰 하단 영역 (시간)-->
+          <div class="row row-com-inner2" align="left">
+            <p class="com-more">
+              <% if ((Time.now - revw.created_at)/60)<1 %>
+                방금
+              <% elsif ((Time.now - revw.created_at)/3600)<=1 %>
+                <%=((Time.now - revw.created_at)/60).round %> 분 전
+              <% elsif ((Time.now - revw.created_at)/3600)<=24 %>
+                <%= ((Time.now - revw.created_at)/3600).round %> 시간 전
+              <%elsif ((Time.now - revw.created_at)/3600/24).round == 1%>
+                하루 전
+               <% elsif ((Time.now - revw.created_at)/3600)<=24*7 %>
+                 <%= ((Time.now - revw.created_at)/3600/24).round %> 일 전
+               <% else %>
+                <%= revw.created_at.strftime("%-m월 %-e일") %>
+               <% end %>
+              <!--대댓글-->
+              <!--<a href="/hoegi105/please_add_contr/<%= revw.id %>" class="show-more-coms">답글보기</a>(<%= revw.replies.count %>)-->
+              <!--삭제-->
+              <!--<% if revw.review_writer === current_user.email %>-->
+                  <!--<button type="button" id="com-box" class="btn btn-default"><a href="/hoegi105/please_add_contr/<%= revw.id %>">삭제</a></button>-->
+              <!--<% end %>-->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+  </div>
 </div>
-</div>
-</div>
+  
 <!--지우지말것-->
 <form></form>
+
+<!--올라오는 하단 탭-->
 <!-- 신규 리뷰, 별점이 없는 상황 -->
 <nav id = 'itsyou' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
-                  <div class="marginupper">
-                    <div class="leftupper"><p id="com-close" class="textbutton">닫기</p>
-                      <script> var me = document.querySelector("#com-close");
-                                $(me).click(function() {
-                                var you = document.querySelector("#itsyou");
-                                    you.style.height = '0%';
-                        });
-                      </script></div>
-                    <div class ="revtitle">평가쓰기</div>
-                    <div class="rightupper">
-                      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form1">
-                    </div> 
-                  </div>
+  <div class="marginupper">
+    <div class="leftupper">
+      <p id="com-close" class="textbutton">닫기</p>
+      <script> 
+        var me = document.querySelector("#com-close");
+        $(me).click(function() {
+        var you = document.querySelector("#itsyou");
+            you.style.height = '0%';
+        });
+      </script>
+    </div>
+    <div class ="revtitle">평가작성</div>
+    <div class="rightupper">
+      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form1">
+    </div> 
+  </div>
 
   <form id="form1" action="/hoegi105/review_process/<%= @lecture.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
-                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
-                <div>
-                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 minlength="10" placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
-                </div>
-                <!--학점에 대한 태그-->
-                <div class="input-star2"></div>
-                <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
-                  </label>
-                  <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary  active">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
-                  </label>
-                  <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
-                  </label>
-                </div><br>
-                <!--편한지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1> 개피곤
-                  </label>
-                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary  active">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
-                  </label>
-                  <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
-                  </label>
-                </div><br>
-                <!--배우는게 있는지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1 > 쓰레기수업
-                  </label>
-                  <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary  active">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2 checked> 평타강의
-                  </label>
-                  <label ontouchstart:"" class=" label-13 tagger3 btn btn4 btn-primary">
-                    <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
-                  </label>
-                </div><br>
+    <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
+    <div>
+      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 minlength="10" placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
+    </div>
+    <!--학점에 대한 태그-->
+    <div class="input-star2"></div>
+    <div class="btn-group" data-toggle="buttons">
+      <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
+        <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
+      </label>
+      <label  ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary  active">
+        <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
+      </label>
+      <label ontouchstart:"" class="label-11 tagger1 btn btn2 btn-primary">
+        <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
+      </label>
+    </div><br>
+    <!--편한지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
+        <input type="radio" name="easy" id="option1" autocomplete="off" value=1> 개피곤
+      </label>
+      <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary  active">
+        <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
+      </label>
+      <label ontouchstart:"" class="label-12 tagger2 btn btn3 btn-primary">
+        <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
+      </label>
+    </div><br>
+    <!--배우는게 있는지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary">
+        <input type="radio" name="academic" id="option1" autocomplete="off" value=1 > 쓰레기수업
+      </label>
+      <label ontouchstart:"" class="label-13 tagger3 btn btn4 btn-primary  active">
+        <input type="radio" name="academic" id="option2" autocomplete="off" value=2 checked> 평타강의
+      </label>
+      <label ontouchstart:"" class=" label-13 tagger3 btn btn4 btn-primary">
+        <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
+      </label>
+    </div><br>
   </form>
+</nav>
 
-  </nav>
-
-
-
-
-
-
-  <!-- 신규 리뷰, 별점이 있는 상황 -->
+<!-- 신규 리뷰, 별점이 있는 상황 -->
 <nav id = 'itsyou2' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
-                   <div class="marginupper">
-                    <div class="leftupper"><p id="com-close2" class="textbutton">닫기</p>
-                     <script> var me = document.querySelector("#com-close2");
-                                $(me).click(function() {
-                                var you = document.querySelector("#itsyou2");
-                                    you.style.height = '0%';
-                        });</script></div>
-                          <div class ="revtitle">평가쓰기</div>
-                    <div class="rightupper">
-                      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form2">
-                      </div></div>
+  <div class="marginupper">
+    <div class="leftupper">
+      <p id="com-close2" class="textbutton">닫기</p>
+        <script> 
+          var me = document.querySelector("#com-close2");
+          $(me).click(function() {
+          var you = document.querySelector("#itsyou2");
+              you.style.height = '0%';
+          });
+        </script>
+    </div>
+    <div class ="revtitle">평가작성</div>
+    <div class="rightupper">
+      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form2">
+    </div>
+  </div>
 
   <form id="form2" action="/hoegi105/edit_review/<%= @mycontent_id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
-                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
-                 <div>
-                  <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
-
-                </div>
-                <!--학점에 대한 태그-->
-                <div class="input-star2"></div>
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 학점폭격
-                  </label>
-                  <label  class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 원칙대로
-                  </label>
-                  <label class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option3" autocomplete="off" value=3
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 학점느님
-                  </label>
-                </div><br>
-                
-                <!--편한지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                     > 개피곤
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 버틸만함
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 편해요
-                  </label>
-                </div><br>
-                
-                <!--배우는게 있는지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 쓰레기수업
-                  </label>
-                  <label class="label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 평타강의
-                  </label>
-                  <label class=" label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option3" autocomplete="off" value=3
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 인생강의
-                  </label>
-                </div><br>
-               
-                
-            </form>
-
-  </nav>
+    <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
+    <div>
+      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^ "></textarea>
+    </div>
+    
+    <!--학점에 대한 태그-->
+    <div class="input-star2"></div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점폭격
+      </label>
+      <label  class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 원칙대로
+      </label>
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점느님
+      </label>
+    </div><br>
+    
+    <!--편한지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option1" autocomplete="off" value=1 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+         > 개피곤
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option2" autocomplete="off" value=2 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+      > 버틸만함
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option3" autocomplete="off" value=3 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 편해요
+      </label>
+    </div><br>
+    
+    <!--배우는게 있는지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 쓰레기수업
+      </label>
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 평타강의
+      </label>
+      <label class=" label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 인생강의
+      </label>
+    </div><br>
+  </form>
+</nav>
   
 <!-- 별점 매기기 new-->
 <nav id = 'itsyou3' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
-                   <div class="marginupper">
-                    <div class="leftupper"><p id="com-close3" class="textbutton">닫기</p>
-                      <script> var me = document.querySelector("#com-close3");
-                                $(me).click(function() {
-                                var you = document.querySelector("#itsyou3");
-                                    you.style.height = '0%';
-                        });</script></div>
-                          <div class ="revtitle">별점주기</div>
-                    <div class="rightupper">
-                      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form3">
-                      </div></div>
+  <div class="marginupper">
+    <div class="leftupper"><p id="com-close3" class="textbutton">닫기</p>
+      <script> 
+        var me = document.querySelector("#com-close3");
+        $(me).click(function() {
+        var you = document.querySelector("#itsyou3");
+            you.style.height = '0%';
+        });
+      </script>
+    </div>
+    <div class ="revtitle">별점주기</div>
+    <div class="rightupper">
+      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form3">
+    </div>
+  </div>
 
   <form id="form3" action="/hoegi105/review_process/<%= @lecture.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
-                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
-                <!--학점에 대한 태그-->
-                <div class="input-star2"></div>
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-11 tagger1 btn btn2 btn-primary ">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
-                  </label>
-                  <label  class="label-11 tagger1 btn btn2 btn-primary active">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
-                  </label>
-                  <label class="label-11 tagger1 btn btn2 btn-primary">
-                    <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
-                  </label>
-                </div><br>
-                <!--편한지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 > 개피곤
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary  active">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
-                  </label>
-                </div><br>
-                <!--배우는게 있는지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-13 tagger3 btn btn4 btn-primary ">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1> 쓰레기수업
-                  </label>
-                  <label class="label-13 tagger3 btn btn4 btn-primary active">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2  checked> 평타강의
-                  </label>
-                  <label class=" label-13 tagger3 btn btn4 btn-primary">
-                    <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
-                  </label>
-                </div><br>
-               
-                
-            </form>
-
-  </nav>
+    <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
+    <!--학점에 대한 태그-->
+    <div class="input-star2"></div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-11 tagger1 btn btn2 btn-primary ">
+        <input type="radio" name="grade" id="option1" autocomplete="off" value=1 > 학점폭격
+      </label>
+      <label  class="label-11 tagger1 btn btn2 btn-primary active">
+        <input type="radio" name="grade" id="option2" autocomplete="off" value=2 checked> 원칙대로
+      </label>
+      <label class="label-11 tagger1 btn btn2 btn-primary">
+        <input type="radio" name="grade" id="option3" autocomplete="off" value=3> 학점느님
+      </label>
+    </div><br>
+    <!--편한지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-12 tagger2 btn btn3 btn-primary">
+        <input type="radio" name="easy" id="option1" autocomplete="off" value=1 > 개피곤
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary  active">
+        <input type="radio" name="easy" id="option2" autocomplete="off" value=2 checked> 버틸만함
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary">
+        <input type="radio" name="easy" id="option3" autocomplete="off" value=3> 편해요
+      </label>
+    </div><br>
+    <!--배우는게 있는지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-13 tagger3 btn btn4 btn-primary ">
+        <input type="radio" name="academic" id="option1" autocomplete="off" value=1> 쓰레기수업
+      </label>
+      <label class="label-13 tagger3 btn btn4 btn-primary active">
+        <input type="radio" name="academic" id="option2" autocomplete="off" value=2  checked> 평타강의
+      </label>
+      <label class=" label-13 tagger3 btn btn4 btn-primary">
+        <input type="radio" name="academic" id="option3" autocomplete="off" value=3> 인생강의
+      </label>
+    </div><br>
+  </form>
+</nav>
   
 <!-- 별점 매기기 update -->
-<!--현재 평가하지 않은 강의에 접속시 오류발생 평가하지 않은 강의실에선 @mylecturerevw를 불러올 수 없기 떄문임-->
 <nav id = 'itsyou4' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
-                   <div class="marginupper">
-                    <div class="leftupper"><button id="com-close4" class="textbutton">닫기</button>
-                      <script> var me = document.querySelector("#com-close4");
-                                $(me).click(function() {
-                                var you = document.querySelector("#itsyou4");
-                                    you.style.height = '0%';
-                        });</script></div>
-                          <div class ="revtitle">별점수정</div>
-                    <div class="rightupper">
-                      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="수정" form="form4">
-                      </div></div>
+  <div class="marginupper">
+    <div class="leftupper"><button id="com-close4" class="textbutton">닫기</button>
+      <script> 
+        var me = document.querySelector("#com-close4");
+        $(me).click(function() {
+        var you = document.querySelector("#itsyou4");
+            you.style.height = '0%';
+        });
+      </script>
+    </div>
+    <div class ="revtitle">별점수정</div>
+    <div class="rightupper">
+      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="수정" form="form4">
+    </div>
+  </div>
 
   <form id="form4" action="/hoegi105/edit_review/<%= @mycontent_id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
-                <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
-                
-                <!--학점에 대한 태그-->
-                <div class="input-star2"></div>
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option1" autocomplete="off" value=1
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 학점폭격
-                  </label>
-                  <label  class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option2" autocomplete="off" value=2
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 원칙대로
-                  </label>
-                  <label class="label-11 tagger1 btn btn2 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_grade == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="grade" id="option3" autocomplete="off" value=3
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_grade == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 학점느님
-                  </label>
-                </div><br>
-                
-                <!--편한지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option1" autocomplete="off" value=1 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                     > 개피곤
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option2" autocomplete="off" value=2 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 버틸만함
-                  </label>
-                  <label class="label-12 tagger2 btn btn3 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_easy == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="easy" id="option3" autocomplete="off" value=3 
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_easy == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 편해요
-                  </label>
-                </div><br>
-                
-                <!--배우는게 있는지에 대한 태그-->
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 1 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option1" autocomplete="off" value=1
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 1 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 쓰레기수업
-                  </label>
-                  <label class="label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 2 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option2" autocomplete="off" value=2
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 2 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 평타강의
-                  </label>
-                  <label class=" label-13 tagger3 btn btn4 btn-primary 
-                    <% if @mylecturerevw != nil %>
-                      <% if @mylecturerevw.eval_academic == 3 %>
-                        <%= 'active' %>
-                      <% end %>
-                    <% end %>
-                  ">
-                    <input type="radio" name="academic" id="option3" autocomplete="off" value=3
-                      <% if @mylecturerevw != nil %>
-                        <% if @mylecturerevw.eval_academic == 3 %>
-                          <%= 'checked' %>
-                        <% end %>
-                      <% end %>
-                    > 인생강의
-                  </label>
-                </div><br>
-               
-                
-            </form>
+    <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
+    
+    <!--학점에 대한 태그-->
+    <div class="input-star2"></div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점폭격
+      </label>
+      <label  class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 원칙대로
+      </label>
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점느님
+      </label>
+    </div><br>
+    
+    <!--편한지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option1" autocomplete="off" value=1 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+         > 개피곤
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option2" autocomplete="off" value=2 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 버틸만함
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option3" autocomplete="off" value=3 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 편해요
+      </label>
+    </div><br>
+    
+    <!--배우는게 있는지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 쓰레기수업
+      </label>
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 평타강의
+      </label>
+      <label class=" label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 인생강의
+      </label>
+    </div><br>
+  </form>
+</nav>
+  
+<!-- 리뷰수정 -->
+<nav id = 'itsyou5' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" align="center" id="cbp-spmenu-s4">
+  <div class="marginupper">
+    <div class="leftupper"><p id="com-close5" class="textbutton">닫기</p>
+      <script> 
+        var me = document.querySelector("#com-close5");
+        $(me).click(function() {
+        var you = document.querySelector("#itsyou5");
+            you.style.height = '0%';
+        });
+      </script>
+    </div>
+    <div class ="revtitle">수정하기</div>
+    <div class="rightupper">
+      <input id="com-submit" class="textbutton" type="submit" class="btn btn-primary" value="등록" form="form5">
+    </div>
+  </div>
 
-  </nav>
+  <form id="form5" action="/hoegi105/review_update/<%= @mycontent_id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
+    <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
+    <div>
+      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20><%= @mycontent_review %></textarea>
+    </div>
+    <!--학점에 대한 태그-->
+    <div class="input-star2"></div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점폭격
+      </label>
+      <label  class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 원칙대로
+      </label>
+      <label class="label-11 tagger1 btn btn2 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_grade == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="grade" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_grade == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 학점느님
+      </label>
+    </div><br>
+    
+    <!--편한지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option1" autocomplete="off" value=1 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+         > 개피곤
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option2" autocomplete="off" value=2 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 버틸만함
+      </label>
+      <label class="label-12 tagger2 btn btn3 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_easy == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="easy" id="option3" autocomplete="off" value=3 
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_easy == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 편해요
+      </label>
+    </div><br>
+    
+    <!--배우는게 있는지에 대한 태그-->
+    <div class="btn-group" data-toggle="buttons">
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 1 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option1" autocomplete="off" value=1
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 1 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 쓰레기수업
+      </label>
+      <label class="label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 2 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option2" autocomplete="off" value=2
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 2 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 평타강의
+      </label>
+      <label class=" label-13 tagger3 btn btn4 btn-primary 
+        <% if @mylecturerevw != nil %>
+          <% if @mylecturerevw.eval_academic == 3 %>
+            <%= 'active' %>
+          <% end %>
+        <% end %>
+      ">
+        <input type="radio" name="academic" id="option3" autocomplete="off" value=3
+          <% if @mylecturerevw != nil %>
+            <% if @mylecturerevw.eval_academic == 3 %>
+              <%= 'checked' %>
+            <% end %>
+          <% end %>
+        > 인생강의
+      </label>
+    </div><br>
+  </form>
+</nav>

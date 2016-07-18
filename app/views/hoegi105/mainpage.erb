@@ -1,84 +1,85 @@
 <!-- 강의 목록 -->
 <% @lecture.each do |hot| %>
-    <div id="upper-panel">
-        <div id="cla-panel" ontouchstart="" class="panel panel-default" align ="left">
-            <a href='/hoegi105/classreview/<%= Classofhot.find(hot.classofhot_id).id %>'>
-            <div> 
-                <div class="panel-title"><h4 class="text-title"><%= Classofhot.find(hot.classofhot_id).lecture_title %></h4></div>
-                <div class="panel-professor"><h4 class="text-professor"><%= Classofhot.find(hot.classofhot_id).professor_name %></h4></div>
-            </div>
-            <div>                    
-                <div class="panel-rates">
-                    <!--평점의 평균-->
-                    <input id="com-star-main" class="rating form-control hide"  data-size="sm" data-show-clear="false" data-show-caption="false" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
-                    <% totalStar = 0 %>
-                    <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
-                    <% review.each do |r| %>
-                        <% totalStar += r.eval_star %>
-                    <% end %>
-                    <% if review.count != 0 %>
-                        <%= (totalStar/review.count).round(1) %>
-                    <% else %>
-                        0
-                    <% end %>
-                    ">
-                        <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
-                            <span class="label2 label label-default">
-                        <% else if Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
-                            <span class="label2 label label-default">
-                        <% else %>
-                            <span class="label3 label label-default">
-                        <% end %>
-                        <% end %>
-                        
-                        <% totalStar = 0 %>
-                        
-                        <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
-                        <% review.each do |r| %>
-                            <% totalStar += r.eval_star %>
-                        <% end %>
-                        <% if review.count != 0 %>
-                            <%= (totalStar/review.count).round(1) %>
-                        <% else %>
-                            0.0
-                        <% end %></span>
-                        
-                        <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
-                            <p class="popcount2">
-                                <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
-                                    회원님이 평가에 참여하였습니다.
-                                <% else %>
-                                    회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
-                                <% end%>
-                            </p>
-                        <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
-                            <p class="popcount2">
-                                <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
-                                    회원님이 평가에 참여하였습니다.
-                                <% else %>
-                                    회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
-                                <% end%>
-                            </p>
-                        <% else %>
-                            <p class="popcount"> <%= Classofhot.find(hot.classofhot_id).reviews.count %>명이 평가에 참여하였습니다.</p>
-                        <% end %>
-                        <!--표시하지 않음<h4 class="text-rates"><%= Classofhot.find(hot.classofhot_id).typeof_lecture %></h4>-->
-                </div>
-                <div class="panel-comments">
-                    <button id="comment_icon_button" align="right" class="btn btn-msg btn-default" type="button"><h4 class="text-comments">
-                        <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
-                          <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
-                        <% else if Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
-                        <span id="comment_icon" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
-                        <% else %>
-                         <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
-                        <% end %>
-                        <% end %>
-                    </button>
-                </div>
-            </div>
-            </a>
-        </div>
+<div id="upper-panel">
+  <div id="cla-panel" ontouchstart="" class="panel panel-default" align ="left">
+    <a href='/hoegi105/classreview/<%= Classofhot.find(hot.classofhot_id).id %>'>
+    <div> 
+        <div class="panel-title"><h4 class="text-title"><%= Classofhot.find(hot.classofhot_id).lecture_title %></h4></div>
+        <div class="panel-professor"><h4 class="text-professor"><%= Classofhot.find(hot.classofhot_id).professor_name %></h4></div>
     </div>
+    <div>                    
+      <div class="panel-rates">
+        <!--별점의 평균(별그래프)-->
+        <input id="com-star-main" class="rating form-control hide"  data-size="sm" data-show-clear="false" data-show-caption="false" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
+          <% totalStar = 0 %>
+          <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
+          <% review.each do |r| %>
+              <% totalStar += r.eval_star %>
+          <% end %>
+          <% if review.count != 0 %>
+              <%= (totalStar/review.count).round(1) %>
+          <% else %>
+              0
+          <% end %>
+        ">
+        <!--별점의 평균(점수)-->
+        <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+            <span class="label2 label label-default">
+        <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+            <span class="label2 label label-default">
+        <% else %>
+            <span class="label3 label label-default">
+        <% end %>
+            <% totalStar = 0 %>
+            <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
+            <% review.each do |r| %>
+                <% totalStar += r.eval_star %>
+            <% end %>
+            <% if review.count != 0 %>
+                <%= (totalStar/review.count).round(1) %>
+            <% else %>
+                0.0
+            <% end %>
+            </span>
+            
+        <!--별점 참여 여부-->
+        <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+          <p class="popcount2">
+            <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
+                회원님이 평가에 참여하였습니다.
+            <% else %>
+                회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
+            <% end%>
+          </p>
+        <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+          <p class="popcount2">
+            <% if Classofhot.find(hot.classofhot_id).reviews.count == 1 %>
+                회원님이 평가에 참여하였습니다.
+            <% else %>
+                회원님 외 <%= (Classofhot.find(hot.classofhot_id).reviews.count-1) %>명이 평가에 참여하였습니다.
+            <% end%>
+          </p>
+        <% else %>
+          <p class="popcount"> <%= Classofhot.find(hot.classofhot_id).reviews.count %>명이 평가에 참여하였습니다.</p>
+        <% end %>
+      </div>
+      
+      <!--리뷰 참여 여부-->
+      <div class="panel-comments">
+          <button id="comment_icon_button" align="right" class="btn btn-msg btn-default" type="button"><h4 class="text-comments">
+              <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+              <% else if Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                <span id="comment_icon" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+              <% else %>
+                <span id="comment_icon2" class="glyphicon glyphicon-comment" align="center">&nbsp;<%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span></h4> <!--리뷰(댓글) 갯수-->
+              <% end %>
+              <% end %>
+          </button>
+      </div>
+    </div>
+    </a>
+  </div>
+</div>
 <% end %>
     

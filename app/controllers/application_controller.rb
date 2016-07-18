@@ -19,4 +19,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :student_num, :user_major) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :student_num, :user_major) }
   end
+  
+  def require_login
+    unless user_signed_in?
+      redirect_to "/"
+    end
+  end
 end
