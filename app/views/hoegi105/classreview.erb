@@ -330,7 +330,7 @@
           
           <button ontouchstart:"" id="button_rating2" type="button" class="btnradone btn btn-default">
             <span class ="label6 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span>
-            <br><p class = "bttext">수정가능</p>
+            <br><p class = "bttext">별점수정</p>
           </button>
             <script>
               var me = document.querySelector("#button_rating2");
@@ -368,7 +368,7 @@
           
           <button ontouchstart:"" id="button_rating" type="button" class="btndone btn btn-default">
             <span class ="label5 label label-default"><%= Review.find_by(:classofhot_id => params[:id], :review_writer => @useremail).eval_star %></span>
-            <br><p class = "bttext">작성완료</p>
+            <br><p class = "bttext">별점수정</p>
           </button>
           
           <button ontouchstart:"" id="button_review" type="button" class="btndone btn btn-default">
