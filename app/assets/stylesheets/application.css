@@ -694,9 +694,9 @@ body {
     
     .loginform{
         position: fixed;
-        top:100vw;
+        top:90vw;
         width:100vw;
-        height:80vw !important;
+        height:90vw !important;
         background-color:rgba(0,0,0,0.4);
         margin-top:0vw;
         padding-top:10vw;
@@ -812,7 +812,7 @@ body {
 }
 #logo {
     width:43.2vw;
-    height:43.2vw;
+    height:36vw;
 }
 #title{
     font-size:10vw;

@@ -451,7 +451,7 @@
         <!-- 프로필 영역 -->
         <div id="for-profile-image" class="col-xs-1">
           <div class="profile-image">
-            <img class="profile-image" src="/assets/<%= revw.picture %>.png">
+            <img class="profile-image" src="/assets/pokemon/<%= revw.picture %>.png">
           </div>
           <% if revw.review_writer == current_user.email %>
             <img src="/assets/ball.jpg" style="height: 25px; margin-top:20px" align="center">
@@ -594,7 +594,7 @@
   <form id="form1" action="/hoegi105/review_process/<%= @lecture.id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
     <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5">
     <div>
-      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 minlength="10" placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
+      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 minlength="10" placeholder="자유롭게 평가글을 작성해주세요. 귀여운 포켓몬이 대신 말해줄거에요^_^"></textarea>
     </div>
     <!--학점에 대한 태그-->
     <div class="input-star2"></div>
@@ -658,7 +658,7 @@
   <form id="form2" action="/hoegi105/edit_review/<%= @mycontent_id %>" method="post"> <!-- form태그에 입력된 값을 method(post)의 형식으로 action(..)으로 보낸다.-->
     <input class=" rating form-control rating-loading" data-size="xl" name="stareval" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" value="<%= @mycontent %>">
     <div>
-      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="귀여운 포켓몬이 대신 말해줄거에요^_^ "></textarea>
+      <textarea id="com-com-com" class="form-control" type="textarea" tyle="resize:none;" name="reviewcontent" length=20 placeholder="자유롭게 평가글을 작성해주세요. 귀여운 포켓몬이 대신 말해줄거에요^_^ "></textarea>
     </div>
     
     <!--학점에 대한 태그-->
