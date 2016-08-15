@@ -11,7 +11,7 @@
                         <!--평점의 평균-->
                         <input id="com-star-main" class="rating form-control hide"  data-size="sm" data-show-clear="false" data-show-caption="false" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
                         <% totalStar = 0 %>
-                        <% review = Review.where('id = ?', Classofhot.find(hot.id).id) %>
+                        <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.id).id) %>
                         <% review.each do |r| %>
                             <% totalStar += r.eval_star %>
                         <% end %>
@@ -32,7 +32,7 @@
                             
                             <% totalStar = 0 %>
                             
-                            <% review = Review.where('id = ?', Classofhot.find(hot.id).id) %>
+                            <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.id).id) %>
                             <% review.each do |r| %>
                                 <% totalStar += r.eval_star %>
                             <% end %>
