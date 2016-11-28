@@ -1,9 +1,51 @@
-<div class = "page-signup" align="center">
+<style>
+	@media screen and (min-width:1000px){
+    	.mobile{visibility: hidden;}
+    	.window{visibility: visible;}
+    	body{
+    		background-color: rgb(255,225,135)
+    	}
+    }
+    @media screen and (max-width:1000px){
+    	.mobile{visibility: visible;}
+    	.window{visibility: hidden;}
+    }
+</style>
+
+<!--PC 시작-->
+<div class="window">
+  <div style="position: absolute; top: 50%; left: 50%; margin-top: 20px; margin-left: -360px; height: 400px; width: 720px;">
+    <div style="float: left; padding-top: 20px; height: 400px; width: 400px;">
+      <span style="display: block; margin-bottom: -10px; color: black; font-size: 30px; font-weight: bold">비밀번호 찾기</span>
+      <a href="/">
+        <img style="position:relative; top:30px; height: 200px" src="/assets/logo.png">
+      </a>    
+    </div>
+    <div style="float: right; padding: 20px; margin-top: 50px; height: 200px; width: 300px; border: 3px solid #FFAB00; background-color: white;">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        
+            <h4 class="reg-label">가입된 메일주소</h4>
+            <%= f.email_field :email, autofocus: true, id: "reg-form-id", class: "form-control", placeholder: "가입된 이메일 주소"%>
+            <p></p>
+            <p>입력 후 메일함을 확인해 주세요!</p>
+            
+            <%= f.submit "비밀번호 변경", id: "button1", class: "btn btn-lg btn-default" %>
+    </div>
+            <%= devise_error_messages! %>
+      <% end %>
+  </div>
+</div>
+<!--PC 끝-->
+
+
+<!--모바일 시작-->
+<div class="mobile">
+  <div class = "page-signup" align="center">
   <div class= "innerpage">
     <div class= "pagehead" align="right"><%= render "devise/shared/links" %></div>
     <div>
         <h1 id="title-signup">비밀번호를 잊으셨나요?</h1>
-        <p>가입된 이메일 주소를 입력하시고 메일함을 확인해주세요!</p>
+        <p>가입된 이메일 주소를 입력하시고</br>메일함을 확인해주세요!</p>
     </div>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -20,4 +62,5 @@
     <% end %>
     
     </div>
+</div>
 </div>

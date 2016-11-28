@@ -31,8 +31,13 @@
 
 </head>
 
-  
+
+
 <body class="cbp-spmenu-push">
+  
+                     
+
+<!--모바일 시작-->
   <div class="page " align="center">
       <meta content='width=device-width, height=device-height,initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
   <!--네비게이션 바-->
@@ -41,7 +46,7 @@
     <div class="row" id="rowspecial" align="center">
       <div class="col-xs-1">
         <a id="home-ex" href="/hoegi105/mainpage">
-        <button id="homeButton" class="btn btn-default" type="button " ontouchstart=""><span  id="home_icon" class="glyphicon glyphicon-home"></span ></button></a>
+        <button id="homeButton" class="btn btn-default" type="button " ontouchstart=""><span id="home_icon" class="glyphicon glyphicon-home"></span></button></a>
       </div>
       
       <!--검색창-->
@@ -66,11 +71,11 @@
                 
                 // var other = document.getElementById(1).querySelector("#itsme");
                 
-                if(you.style.height != '75vw'){
-                    you.style.height = '75vw';
+                if(you.style.height != '60vw'){
+                    you.style.height = '60vw';
                    other.style.height = '0vw';
                 }
-                else if(you.style.height == '75vw') {
+                else if(you.style.height == '60vw') {
                     you.style.height = '0vw';
                 }
                 else{
@@ -92,7 +97,6 @@
     <!--우측 메뉴 버튼으로 불러오는 페이지 -->
     <nav id = 'itswho' class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom-open" id="cbp-spmenu-s4">
       <a class="rmenu" href="/hoegi105/myreview">나의평가</a>
-      <a class="rmenu" href="/hoegi105/pokedex">포켓몬도감</a>
       <%= link_to "정보수정", edit_user_registration_path, class: "rmenu"%>
       <a class="rmenu" href="/logout">로그아웃</a>
       <a class="rmenu" id="closer">닫기</a>
@@ -216,6 +220,7 @@
       <div class="btn-group"> 
            <button ontouchstart="" class= "dropbutton2 btn btn-lg btn-default" type="submit" name="major_choice"value="006">호텔경영학과</button>
       </div>
+ </form>
   <% else %>
        <form id = "selectform" action="/hoegi105/mainpage" method="post">
        <div class="btn-group">
@@ -238,13 +243,32 @@
       </div>
 
           <div id = "bottomline"></div>
-          
-  </nav>
-</div>
+
+      </form>          
+  
   <% end %>
-  </form>
+    </nav>
+</div>
 <% else %>
 <% end %>
+
 <%= yield %>
+
+  <!--모바일 끝-->
+
+  <script>
+      $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+  </script>
 </body>
+
 </html>

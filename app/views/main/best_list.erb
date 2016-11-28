@@ -1,0 +1,141 @@
+<style>
+    .rating-xs{
+        font-size: 24px;
+    }
+    .star-rating{
+        display: inline;
+    }
+    .rating-container{
+        margin-top: 6px;
+    }
+</style>
+<!--최신강의 페이지-->
+<% @best_review.order("_like DESC, _dislike, created_at DESC").limit(5).each do |revw| %>
+    <a href="/main/lecture_review/<%= revw.classofhot_id %>">
+    <div id="reviewSector" style="float: left; display: block; padding: 10px; height: auto; width: 100%; border-bottom: 1px solid #dfdfdf;">
+        
+        <!--강의명과 교수명 파트-->
+        <div style="font-size: 20px; font-weight: bold; width: 100%; color:#1A237E; border-bottom: 1px solid #dfdfdf">
+            <%= Classofhot.find(revw.classofhot_id).lecture_title %>
+            <span style="font-size:15px; color:#757575"><%= Classofhot.find(revw.classofhot_id).professor_name %></span>
+        </div>
+        
+        
+        <div style="float: left; height: auto; width: 100%; padding:5px; padding-top:10px">
+          <!--프로필 이미지-->
+          <div style="display: inline; float:left; height: 50px; width: 50px;">
+            <% if revw.eval_star >= 0.0 && revw.eval_star < 1.0 %>
+              <img src="/assets/emoticon/angry.png" style="width: 40px; margin-left: 3px;margin-top: 3px">
+            <% elsif revw.eval_star >= 1.0 && revw.eval_star < 2.5 %>
+              <img src="/assets/emoticon/sad.png" style="width: 40px; margin-left: 3px;margin-top: 3px">
+            <% elsif revw.eval_star >= 2.5 && revw.eval_star < 3.5 %>
+              <img src="/assets/emoticon/muted.png" style="width: 40px; margin-left: 3px;margin-top: 3px">
+            <% elsif revw.eval_star >= 3.5 && revw.eval_star < 4.5 %>
+              <img src="/assets/emoticon/smiling.png" style="width: 40px; margin-left: 3px;margin-top: 3px">
+            <% else %>
+              <img src="/assets/emoticon/in-love.png" style="width: 40px; margin-left: 3px;margin-top: 3px">
+            <% end %>
+          </div>
+            <div style="float:left; display:inline; margin-left:10px;">
+              <span style="font-size:15px; color:black;">익명</span>
+            </div>
+            <div style="float:left; display:inline; margin-left:20px; margin-top:-10px">
+              <!--작성자가 매긴 별점-->
+              <input style=" display: inline;" id="com-star" class="rating form-control hide"  data-size="xs" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="<%= revw.eval_star %>">
+            </div>
+          <div>
+            <label class="content_text" style="float: right">
+              <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" style="color:#ff0000;"></span> 
+              <!--좋아요 수-->
+              <%= revw._like.to_i %>&nbsp;
+              <span id="thumbs-up-icon" class="glyphicon glyphicon-thumbs-down" aria-hidden="true" style="color:rgb(0, 185, 255)!important;"></span> 
+              <!--싫어요 수-->
+              <%= revw._dislike.to_i %>
+            </label>
+          </div>
+          
+          <div class="content_text" style="float: left; margin-left: 60px; height: auto; width: 560px; margin-top: -25px; padding-top:5px;">
+              <%= simple_format(revw.review_content.truncate(120)) %>
+          </div>
+          
+          <div style="position: relative; clear: both; margin-left: 60px; height: 30px; width: 550px; font-size: 14px; bottom: 5px; color: grey;">
+            
+              <% if revw.eval_grade == 3 %> 
+                #학점느님&nbsp;
+              <% elsif revw.eval_grade == 2 %> 
+                #원칙대로&nbsp;
+              <% else %> 
+                #학점폭격&nbsp;
+              <% end %>
+            
+              <% if revw.eval_easy == 3 %> 
+                #편해요&nbsp;
+              <% elsif revw.eval_easy == 2 %> 
+                #버틸만함&nbsp;
+              <% else %> 
+                #개피곤&nbsp;
+              <% end %>
+            
+              <% if revw.eval_academic == 3 %>
+                #인생강의&nbsp;
+              <% elsif revw.eval_academic == 2 %>
+                #평타강의&nbsp;
+              <% else %> 
+                #쓰레기수업&nbsp;
+              <% end %>
+              
+              <!--<% if revw.eval_grade == 3 %> -->
+              <!--  <span class="label label-danger">학점느님</span>-->
+              <!--<% elsif revw.eval_grade == 2 %> -->
+              <!--  <span class="label label-danger">원칙대로</span>-->
+              <!--<% else %> -->
+              <!--  <span class="label label-danger">학점폭격</span>-->
+              <!--<% end %>-->
+            
+              <!--<% if revw.eval_easy == 3 %> -->
+              <!--  <span class="label label-g2">편해요</span>-->
+              <!--<% elsif revw.eval_easy == 2 %> -->
+              <!--  <span class="label label-g2">버틸만함</span>-->
+              <!--<% else %> -->
+              <!--  <span class="label label-g2">개피곤</span>-->
+              <!--<% end %>-->
+            
+              <!--<% if revw.eval_academic == 3 %>-->
+              <!--  <span class="label label-warning">인생강의</span>-->
+              <!--<% elsif revw.eval_academic == 2 %>-->
+              <!--  <span class="label label-warning">평타강의</span>-->
+              <!--<% else %> -->
+              <!--  <span class="label label-warning">쓰레기수업</span>-->
+              <!--<% end %>-->
+              
+          </div>
+          <div style="float:left; margin-left:60px; margin-top:-10px; bottom:10px">
+            <span style="font-size:13px; color:#616161;">
+              <% if ((Time.now - revw.created_at)/60)<1 %>
+                  방금
+              <% elsif ((Time.now - revw.created_at)/3600)<=1 %>
+                  <%=((Time.now - revw.created_at)/60).round %>분전
+              <% elsif ((Time.now - revw.created_at)/3600)<=24 %>
+                  <%= ((Time.now - revw.created_at)/3600).round %>시간전
+              <%elsif ((Time.now - revw.created_at)/3600/24).round == 1%>
+                  하루 전
+              <% elsif ((Time.now - revw.created_at)/3600)<=24*7 %>
+                  <%= ((Time.now - revw.created_at)/3600/24).round %>일전
+              <% else %>
+                  <%= revw.created_at.strftime("%-m월 %-e일") %>
+              <% end %>
+                  <!--<a href="/hoegi105/reply/<%= revw.id %>" class="show-more-coms">답글보기</a>(<%= revw.replies.count %>)-->
+              <% if revw.review_writer === current_user.email %>
+                  <!--<a href="/hoegi105/review_delete/<%= revw.id %>">삭제</a>-->
+              <% end %>
+            </span>
+          </div>
+        </div>
+    </div>
+    </a>
+<% end %>
+
+<script>
+  $("#2").css("background-color", "#FFD54F")
+  // 2번째 메뉴의 배경색 주는 코드
+</script>

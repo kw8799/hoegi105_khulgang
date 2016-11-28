@@ -35,8 +35,9 @@ body, html { font-size: 100%; 	padding: 0; margin: 0;}
 }
 
 body {
-    font-family: 'Lato', Calibri, Arial, sans-serif;
-    color: #47a3da;
+    font-family: 'Jeju Gothic', Calibri, Arial, sans-serif;
+    color: #393636;
+    /*color: #47a3da;*/
 
 }
 
@@ -180,4 +181,3 @@ a:hover {
 .icon-arrow-left:before {
 	content: "\f060";
 }
-

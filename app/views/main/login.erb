@@ -1,0 +1,36 @@
+<div class="window" style="height: 100vh; width: 100%; background-color: #FFE187">
+	<div style="position: absolute; top: 50%; left: 50%; margin-top: -260px; margin-left: -200px; padding:20px; height:517px; width: 400px; text-align: center;">
+		<span style="display: block; margin-bottom: -10px; font-size: 30px; font-weight: bold">꿀강</span>
+		<span style="display: block; font-weight: bold; margin-top:5px">경희대학교 강의평가시스템</span>
+		<img style="height: 200px" src="/assets/logo.png">
+		<span style="display: block; font-weight: bold">
+			<span class="count" style="font-size:25px"><%= User.all.count %></span> 명이 
+			<span class="count" style="font-size:25px"><%= Review.all.count %></span> 개의 강의평가를 하였습니다
+		</span>
+		<div style="position: relative; left: 50%; margin-left: -125px; padding-top: 20px; width: 250px;">
+			<%= form_for(:user, :url => session_path(:user)) do |f| %>
+			  <%= f.hidden_field :target_url, value: "landscape" %>
+			<!--아이디 input-->
+				<%= f.email_field :email, autofocus: true, type: "text", id: "form-identification", class: "form-control", placeholder: "아이디(이메일)", style: "margin-bottom: 10px;"%>
+			<!--비밀번호 input-->
+				<%= f.password_field :password, autocomplete: "off", type: "password", id: "form-password", class: "form-control", style: "font-family: Gothic !important;", placeholder: "패스워드" %>
+				
+			<!--로그인 유지 버튼-->
+				    <div id="new" class="field">
+				      <%= f.check_box :remember_me %>
+				      <%= f.label :"로그인 유지", class: "textlink"%>
+				    </div>
+
+					
+			<!--로그인버튼 input-->
+				<%= f.submit "Log in", id: "button1", ontouchstart:"", class: "btn btn-lg btn-default", value: "로그인", style: "display:block; padding: 0px; width: 250px; height: 40px;" %>
+			
+			<!--회원가입, 비밀번호 찾기-->
+		  <%= link_to "회원이 아니신가요?", new_registration_path(:user), class: "textlink" %><br />
+	      <%= link_to "비밀번호를 까먹었어요.", new_password_path(:user), class: "textlink" %><br />
+
+
+			<% end %>
+		</div>
+	</div>
+</div>

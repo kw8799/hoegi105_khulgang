@@ -1,32 +1,101 @@
-<div class = "page-signup" align="center">
-  <div class= "innerpage">
-    <div>
-    <h1>정보수정</h1>
+<style>
+	@media screen and (min-width:1000px){
+  	.window{visibility: visible;}
+  	.mobile{visibility: hidden;}
+  	#itsme{top:0;height:auto;}
+  	body{
+  		background-color: rgb(255,225,135)
+  	}
+  }
+  @media screen and (max-width:1000px){
+  	.mobile{visibility: visible;}
+  	.window{visibility: hidden; display: none;}
+  }
+</style>
+
+<script type="text/javascript">
+    var filter = "win16|win32|win64|mac";
+    if(navigator.platform){
+        if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+            
+            // 0보다 작으면 모바일
+        }else{
+          $(".navbar").css("visibility", "hidden").css("display", "none")
+          $(".mobile").css("visibility", "hidden").css("display", "none")
+          $("#selectyourdep").css("visibility", "hidden").css("display", "none")
+          $("#itswho").css("visibility", "hidden").css("display", "none")
+          $("#itsme").css("visibility", "hidden").css("display", "none")
+          $("#selectform").css("visibility", "hidden").css("display", "none")
+          $("#selectform2").css("visibility", "hidden").css("display", "none")
+            // 0보다 크면 PC
+        }
+    }
+</script>
+
+<!--PC 시작-->
+<div class="window">
+  <div style="position: absolute; top: 50%; left: 50%; margin-top: 20px; margin-left: -310px; height: 400px; width: 620px;" align="center">
+    <div style="float: left; padding-top: 20px; height: 400px; width: 200px;">
+      <span style="display: block; margin-bottom: -10px; color: black; font-size: 30px; font-weight: bold; font-family: Jeju Gothic;">정 보 수 정</span>
+      <!--벌로고-->
+      <a href="/">
+        <img style="position:relative; top:30px; height: 200px" src="/assets/logo.png">
+      </a>
     </div>
-
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= devise_error_messages! %>
-      
-      <div class="reg-row1">
-      </div>
-      <div class="input-group input-group-lg">
-        <%= f.password_field :current_password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "기존의 비밀번호" %>
-      </div>
-      
-      <div class="input-group input-group-lg">
-        <%= f.password_field :password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꿀 비밀번호" %>
-      </div>
     
-      <div class="input-group input-group-lg">
-        <%= f.password_field :password_confirmation, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꾼 비밀번호 확인" %>
-      </div>
-      
-      <div class="actions">
-        <%= f.submit "수정하기", id: "reg-form-button", class: "btn btn-lg btn-default" %>
-      </div>
-    <% end %>
+    <div style="float: right; margin-top: 25px; padding: 20px; height: 240px; width: 300px; border: 3px solid #FFAB00; background-color: white;">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+          
+          <%= f.password_field :current_password, autofocus: true, id: "reg-form-id", class: "form-control", style: "margin-bottom:10px; font-weight: bold; font-family: tahoma", placeholder: "기존의 비밀번호" %>
+          
+          <%= f.password_field :password, id: "reg-form-id", class: "form-control", style: "margin-bottom:10px; font-weight: bold; font-family: jeju-gothic", placeholder: "바꿀 비밀번호" %>
+          <%= f.password_field :password_confirmation, id: "reg-form-id", class: "form-control", style: "font-weight: bold; font-family: jeju-gothic", placeholder: "바꾼 비밀번호 확인" %>
 
-    <!--<%= button_to " ", registration_path(resource_name), data: { confirm: "진짜요?ㅠ" }, method: :delete %></p>-->
-
+        <div class="actions">
+          <%= f.submit "수정하기", id: "button1", class: "btn btn-lg btn-default", style:"margin-top: 20px; width: 100%" %>
+        </div>
+      <% end %>
+      <!--<%= button_to " ", registration_path(resource_name), data: { confirm: "진짜요?ㅠ" }, method: :delete %></p>-->
+    </div>
+    
   </div>
 </div>
+<!--PC 끝-->
+
+<!--모바일시작-->
+<div class="mobile">
+  <div class = "page-signup" align="center">
+    <div class= "innerpage">
+      <div>
+      <h1>정보수정</h1>
+      </div>
+  
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+        
+        <div class="reg-row1">
+        </div>
+        <div class="input-group input-group-lg">
+          <%= f.password_field :current_password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "기존의 비밀번호" %>
+        </div>
+        
+        <div class="input-group input-group-lg">
+          <%= f.password_field :password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꿀 비밀번호" %>
+        </div>
+      
+        <div class="input-group input-group-lg">
+          <%= f.password_field :password_confirmation, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "바꾼 비밀번호 확인" %>
+        </div>
+        
+        <div class="actions">
+          <%= f.submit "수정하기", id: "reg-form-button", class: "btn btn-lg btn-default" %>
+        </div>
+      <% end %>
+  
+      <!--<%= button_to " ", registration_path(resource_name), data: { confirm: "진짜요?ㅠ" }, method: :delete %></p>-->
+  
+    </div>
+  </div>
+</div>
+<!--모바일끝-->

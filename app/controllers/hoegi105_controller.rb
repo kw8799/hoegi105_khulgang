@@ -41,9 +41,9 @@ class Hoegi105Controller < ApplicationController
         @lecture = Review.where({ review_writer: current_user.email })
     end
     
-    def pokedex
-        @pokelist = Review.where(review_writer: current_user.email).where.not(review_content: nil).where.not(review_content: "")
-    end
+    # def pokedex
+    #     @pokelist = Review.where(review_writer: current_user.email).where.not(review_content: nil).where.not(review_content: "")
+    # end
     
     def classreview
         @useremail = current_user.email
@@ -99,27 +99,32 @@ class Hoegi105Controller < ApplicationController
         else
             @profile = ["거북왕", "고라파덕", "꼬부기", "롱스톤", "리자드", "리자몽", 
                         "어니부기", "나옹", "이상해꽃", "피카츄", "이상해씨", "이상해풀", 
-                        "디그다", "토게피", "파이리", "푸린", "꼬마돌", "뮤", "발챙이",
-                        "성원숭", "야돈", "잉어킹",
+                        "디그다", "토게피", "파이리", "푸린", "꼬마돌", "뮤", 
+                        "발챙이", "성원숭", "야돈", "잉어킹",
                         # 160722추가
-                        "가디", "강챙이", "갸라도스", "고오스", "고우스트", "고지", "골덕",
+                        "가디", "강챙이", "갸라도스", "고오스", "고우스트", "고지",
                         "골뱃", "괴력몬", "구구", "근육몬", "깨비드릴조", "깨비참", "꼬렛",
                         "나시", "나인테일", "날쌩마", "내루미", "냄새꼬", "니드런♀", "니드런♂",
                         "니드리나", "니드리노", "니드퀸", "니드킹", "닥트리오", "단데기",
-                        "덩쿠리", "데구리", "도나리", "독침붕", "독파리", "두두", "두트리오",
-                        "딱구리", "딱충이", "또가스", "또도가스", "뚜벅초", "라이츄", "라프라스",
-                        "라플레시아", "럭키", "레어코일", "레트라", "루주라", "리자몽", "마그마",
-                        "마임맨", "망나뇽", "망키", "모다피", "뮤츠", "미뇽", "버터플", "별가사리",
+                        "덩쿠리", "독침붕", "독파리", "두두", "두트리오",
+                        "딱구리", "딱충이", "또도가스", "뚜벅초", "라이츄", "라프라스",
+                        "라플레시아", "럭키", "레어코일", "리자몽", "마그마",
+                        "마임맨", "망나뇽", "망키", "모다피", "뮤츠", "버터플", "별가사리",
                         "부스터", "붐볼", "뿔충이", "뿔카노", "쁘사이저", "삐삐", "샤미드", "셀러",
-                        "슈륙챙이", "스라크", "슬리퍼", "슬리프", "시드라", "시라소몬", "식스테일",
-                        "신뇽", "썬더", "쏘드라", "아라리", "아보", "아보크", "아쿠스타", "알통몬",
+                        "슈륙챙이", "슬리퍼", "슬리프", "시라소몬", "식스테일",
+                        "신뇽", "썬더", "쏘드라", "아라리", "아보", "알통몬",
                         "암나이트", "암스타", "야도란", "에레브", "왕눈해", "왕콘치", "우츠동",
-                        "우츠보트", "윈디", "윤겔라", "이브이", "잠만보", "주뱃", "쥬레곤", "쥬쥬",
-                        "쥬피썬더", "질뻐기", "질퍽이", "찌리리공", "캐이시", "캐터피", "캥카",
+                        "우츠보트", "윈디", "윤겔라", "잠만보", "주뱃", "쥬레곤", "쥬쥬",
+                        "질뻐기", "질퍽이", "찌리리공",  "캐터피", "캥카",
                         "켄타로스", "코뿌리", "코일", "콘치", "콘팡", "크랩", "킹크랩", "탕구리",
-                        "텅구리", "투구", "투구푸스", "파라섹트", "파라스", "파르셀", "파오리", 
-                        "파이어", "팬텀", "페르시온", "포니타", "폴리곤", "푸크린", "프리져",
-                        "프테라", "피죤", "피죤투", "픽시", "홍수몬", "후딘"]
+                        "텅구리", "투구", "투구푸스", "파라섹트", "파르셀", "파오리", 
+                        "파이어", "팬텀", "페르시온", "포니타", "푸크린", "프리져",
+                        "프테라", "피죤", "피죤투", "픽시", "홍수몬", "후딘",
+                        # 대체해야 할 캐릭들
+                         "데구리", "도나리", "또가스", "스라크", "레트라", "루주라", 
+                         "미뇽",  "시드라", "아보크", "아쿠스타", "쥬피썬더", "이브이", 
+                         "캐이시",  "파라스",  "폴리곤", "골덕",
+                        ]
             lecturereviews = Review.where('classofhot_id = ?',params[:id])
             lecturereview = Review.new #lecturereview변수는 Review(DB)에 새로운 값을 생성한다.
             lecturereview.classofhot_id = params[:id] #널 내가 빼먹었었구나!
@@ -270,13 +275,15 @@ class Hoegi105Controller < ApplicationController
     def error
     end
     
-    def admin
+    def admin 
+        # 관리자페이지
         unless current_user.email == "hoegi105@gmail.com"
             redirect_to ''
         end
     end
     
     def admin_process
+        # 관리자가 강의를 등록하는 알고리즘
         lecture = Classofhot.new #lecture변수는 Classofhot(DB)에 새로운 값을 생성한다.
         lecture.lecture_title = params[:lecturetitle] #lecture_title엔 lecturetitle에 입력된 값을 받는다.
         lecture.professor_name = params[:professorname] #professor_name엔 professorname에 입력된 값을 받는다.
@@ -296,10 +303,14 @@ class Hoegi105Controller < ApplicationController
     end
     
     def admin_update
+        # 관리자가 등록된 강의를 수정하는 페이지
+        # 현재 비활성화
         @lecture = Classofhot.find(params[:id])
     end
     
     def admin_update_process
+        # 관리자가 등록된 강의를 수정하는 알고리즘
+        # 현재 비활성화
         major_codes = params[:lecturemajor]
         lecture = Classofhot.find(params[:id]) #Classofhot(DB)에서 특정 id값에 해당하는 자료
         lecture.lecture_title = params[:lecturetitle] #lecture_title엔 lecturetitle에 입력된 값을 받는다.
@@ -320,6 +331,7 @@ class Hoegi105Controller < ApplicationController
 
     
     def admin_delete
+        # 관리자가 등록된 강의를 삭제하는 알고리즘
         unless current_user.email == "hoegi105@gmail.com"
             redirect_to ''
         end

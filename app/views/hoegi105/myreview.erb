@@ -11,7 +11,19 @@
         <%= Classofhot.find(revw.classofhot_id).lecture_title %>
         </div>
         <div id="for-profile-image" class="col-xs-1">
-            <div class="profile-image"><img class="profile-image"src="/assets/pokemon/<%= revw.picture %>.png"></div>
+            <div class="profile-image">
+                <% if revw.eval_star >= 0.0 && revw.eval_star < 1.0 %>
+                  <img class="profile-image" src="/assets/emoticon/angry.png">
+                <% elsif revw.eval_star >= 1.0 && revw.eval_star < 2.0 %>
+                  <img class="profile-image" src="/assets/emoticon/sad.png">
+                <% elsif revw.eval_star >= 2.0 && revw.eval_star < 3.0 %>
+                  <img class="profile-image" src="/assets/emoticon/muted.png">
+                <% elsif revw.eval_star >= 3.0 && revw.eval_star < 4.0 %>
+                  <img class="profile-image" src="/assets/emoticon/smiling.png">
+                <% else %>
+                  <img class="profile-image" src="/assets/emoticon/in-love.png">
+                <% end %>
+            </div>
             <p class="com-date"><br>
             </p>
         </div>
@@ -21,7 +33,7 @@
                         
                         <p class="com-writer">
                             <!--글쓴이의 익명 닉네임-->
-                            <%= revw.picture %>
+                            <%= revw.review_writer.truncate(10) %>
                             <!--강의명-->
                             <!--<%= Classofhot.find(revw.classofhot_id).lecture_title %>-->
                         </p>

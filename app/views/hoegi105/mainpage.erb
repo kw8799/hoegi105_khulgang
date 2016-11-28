@@ -24,6 +24,7 @@
         ">
         <!--별점의 평균(점수)-->
         <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+        
             <span class="label2 label label-default">
         <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
             <span class="label2 label label-default">

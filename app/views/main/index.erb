@@ -1,0 +1,18 @@
+<!--기기 해상도에 따른 페이지 이동 (보이는 화면 없음)-->
+
+<script type="text/javascript">
+    var filter = "win16|win32|win64|macintel|mac";
+    if(navigator.platform){
+        if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+            location.href = "/login"
+            // 0보다 작으면 모바일
+
+        }else{
+            location.href = "/main/login"
+            // 0보다 크면 PC
+        }
+    }
+</script>
+
+<!--실제 모바일에서 제대로 작동하지 않음-->
+<!--width 수치를 900에선 실제 모바일에서 작동하지 않고, 1000이 되어야만 작동함.-->

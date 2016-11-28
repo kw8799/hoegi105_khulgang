@@ -1,10 +1,14 @@
-
+<!--모바일 시작-->
 	<div class = "bg"></div>
-		<div id="logo"></div>
-		<div class=titleslot>
-			<h1 id="title">Khulgang</h1>
+		<div id="logo-section">
+			<span id="title">꿀강</span><br>
+			<span id="sub-title">경희대학교 강의평가시스템</span>
+			<div id="logo"><img id="logo" src="/assets/logo.png"></div>
+			<span style="display: block; font-weight: bold">
+				<span class="count" style="font-size:5vw"><%= User.all.count %></span> 명이 
+				<span class="count" style="font-size:5vw"><%= Review.all.count %></span> 개의 강의평가를 하였습니다
+			</span>
 		</div>
-	
 		<div class="loginform" align="center">
 		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 			<div class="input-group input-group-lg field">
@@ -12,7 +16,6 @@
 				<!--ID input-->
 				<br />
 	    		<%= f.email_field :email, autofocus: true, type: "text", id: "form-identification", class: "form-control", placeholder: "아이디(이메일)"%>
-				
 			</div>
 			<div class="input-group input-group-lg field">
 				<!--비번 input-->
@@ -33,22 +36,4 @@
 			<%= render "devise/shared/links" %>
 		<% end %>
 		</div>
-		
-<!--인덱스에서 모달은 효과에 비해 버려야 하는게 너무나 많다-->
-
-		<!-- <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" align="center">
-			<div class="modal-dialog"  role="document" align="center">
-				<div class="modal-content" id="signup-modal" align="center">
-					<div class="modal-header" align="right">
-						<button type="button" id="primaryButton"  data-dismiss="modal"/><span class ="glyphicon glyphicon-remove"/>
-					</div>
-					<div id="modal-main" class="modal-body">
-						<iframe src="/hoegi105/join" />
-					</div>
-				</div>
-			</div>
-		</div>-->
-
-
-
-
+<!--모바일 끝-->

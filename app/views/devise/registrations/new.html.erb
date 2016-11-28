@@ -1,4 +1,55 @@
-<div class = "page-signup" align="center">
+<style>
+	@media screen and (min-width:1000px){
+    	.mobile{visibility: hidden;}
+    	.window{visibility: visible;}
+    	body{
+    		background-color: rgb(255,225,135)
+    	}
+    }
+    @media screen and (max-width:1000px){
+    	.mobile{visibility: visible;}
+    	.window{visibility: hidden;}
+    }
+</style>
+
+<!--PC 시작-->
+<div class="window">
+  <div style="position: absolute; top: 50%; left: 50%; margin-top: 20px; margin-left: -360px; height: 400px; width: 720px;">
+    <div style="float: left; padding-top: 20px; height: 400px; width: 400px;">
+      <span style="display: block; margin-bottom: -10px; color: black; font-size: 30px; font-weight: bold">회 원 가 입</span>
+      <!--벌로고-->
+      <a href="/">
+        <img style="position:relative; top:30px; height: 200px" src="/assets/logo.png">
+      </a>
+    </div>
+    <div style="float: right; padding: 20px; height: 325px; width: 300px; border: 3px solid #FFAB00; background-color: white;">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+        <!--<div><%= f.label :학번 %><br />-->
+        <!--    <%= f.text_field :student_num, autofocus: true %></div>-->
+        
+        <h4 class="reg-label">이메일</h4>
+        <%= f.email_field :email, autofocus: true, id: "reg-form-id", class: "form-control", placeholder: "이메일 주소" %>
+        
+        <h4 class="reg-label">비밀번호</h4>
+        <%= f.password_field :password, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "비밀번호 (8자 이상)" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", id: "reg-form-password", class: "form-control", placeholder: "비밀번호 확인" %>
+        
+        <h5 class="reg-label">이메일은 비밀번호 변경 및 분실시 사용되니 꼭 본인 이메일을 입력해주세요.</h4>
+        <%= f.submit "가입하기", id: "button1", class: "btn btn-lg btn-default", style:"margin-top: 5px; width: 100%"%>
+    </div>
+    <span style="font-size:12px;">
+    <%= devise_error_messages! %>
+    </span>
+    <% end %>
+  </div>
+</div>
+<!--PC 끝-->
+
+
+<!--모바일 시작-->
+<div class="mobile">
+  <div class = "page-signup" align="center">
   <div class= "innerpage">
     <div class= "pagehead" align="right"><%= render "devise/shared/links" %></div>
     <div>
@@ -36,4 +87,5 @@
   <% end %>
     
   
+</div>
 </div>

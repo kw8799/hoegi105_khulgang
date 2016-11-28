@@ -1,0 +1,143 @@
+<!--검색 결과 페이지-->
+<style>
+    .rating-xs{
+        font-size: 24px;
+    }
+    .star-rating{
+        display: inline;
+    }
+    .rating-container{
+        margin-top: 6px;
+    }
+    #comment_icon_pc{
+        color:#FFC107 ;
+    }
+</style>
+
+<form action="/main/result_lecture" method="get">
+  <div id="search-pane_pc" class="input-group input-group-lg">
+      <input id="searchPane1_pc" type="text" class="form-control" name="title" placeholder="찾으시는 강의명을 입력해주세요">
+      <input id="searchButton_pc" class="form-control" type="submit" value="" form="searching" style="left: 20px;">
+  </div>
+</form>
+
+<div style="text-align:center; margin-bottom:10px">
+  "<%= params[:title] %>"의 검색 결과입니다.
+</div>
+
+<!--최신강의 페이지-->
+<% @lecture.each do |revw| %>
+    <a href="/main/lecture_review/<%= revw.id %>">
+    <div id="reviewSector" style="display: block; padding: 10px; height: 105px; width: 100%; border-top: 1px solid #dfdfdf;">
+        
+        <!--강의명과 교수명 파트-->
+        <div style="font-size: 20px; font-weight: bold; width: 100%; color:#1A237E;">
+            <%= revw.lecture_title %>
+            <span style="font-size:15px; color:#757575"><%= revw.professor_name %></span>
+        </div>
+        
+        
+        <div style="float: left; height: 60px; width: 100%; padding:5px; padding-top:15px">
+          
+            
+          
+          <div style="position: relative; clear: both; height: 30px; width: 650px; font-size: 16px; bottom: 5px;">
+            <div style="float:left; display:inline; margin-top:-10px">
+              <!--작성자가 매긴 별점-->
+              <input style=" display: inline;" id="com-star" class="rating form-control hide"  data-size="xs" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
+              <% totalStar = 0 %>
+              <% review = Review.where('classofhot_id = ?', Classofhot.find(revw.id).id) %>
+              <% review.each do |r| %>
+                  <% totalStar += r.eval_star %>
+              <% end %>
+              <% if review.count != 0 %>
+                  <%= (totalStar/review.count).round(1) %>
+              <% else %>
+                  0
+              <% end %>
+              ">
+            </div>
+            
+            <div style="float: right">
+              
+              <!--학점 잘 주니-->
+              <% sumofgrade = revw.reviews.all.sum :eval_grade
+              if sumofgrade == 0
+                  @representgrade = nil
+              else
+                  @representgrade = sumofgrade / revw.reviews.count
+              end %>
+              <!--편한하니-->
+              <% sumofeasy = revw.reviews.all.sum :eval_easy
+              if sumofeasy == 0
+                  @representeasy = nil
+              else
+                  @representeasy = sumofeasy / revw.reviews.count
+              end %>
+              <!--배우는게 있니-->
+              <% sumofacademic = revw.reviews.all.sum :eval_academic
+              if sumofacademic == 0
+                  @representacademic = nil
+              else
+                  @representacademic = sumofacademic / revw.reviews.count
+              end %>
+              
+              <% if @representacademic == nil || @representeasy == nil || @representgrade == nil %>
+        
+                  <span style="font-size:13px; color:#616161; padding-right:10px;">#평가없음</span>
+                
+                <% else %>
+                
+                  <% if @representgrade >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#학점느님</span>
+                  <% elsif @representgrade >= 1.66 and @representgrade < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#원칙대로</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#학점폭격</span>
+                  <% end %>
+                
+                  <% if @representeasy >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#편해요</span>
+                  <% elsif @representeasy >= 1.66 and @representeasy < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#버틸만함</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#개피곤</span>
+                  <% end %>
+                
+                  <% if @representacademic >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#인생강의</span>
+                  <% elsif @representacademic >= 1.66 and @representacademic < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#평타강의</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#쓰레기수업</span>
+                  <% end %>
+                    
+                <% end %>
+            </div>
+        </div>
+        <div style="float:right; margin-top:-10px; bottom:10px; ">
+              <span style="font-size:13px; color:#616161; padding-right:10px;">
+                <%= revw.reviews.count %>명이 평가에 참여했습니다.
+              </span>
+              <span id="comment_icon_pc" style="top:4px; padding-top: 2px;">
+                <% if revw.reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #cccccc; top: 4px;"></span>
+                  <span style="font-size:14px; color: #cccccc;"><%= revw.reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% elsif revw.reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #FFD54F; top: 4px;"></span>
+                  <span style="font-size:14px; color: #FFD54F;"><%= revw.reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% else %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #cccccc; top: 4px;"></span>
+                  <span style="font-size:14px; color: #cccccc;"><%= revw.reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% end %>
+              </span>
+            </div>
+    </div>
+    </div>
+    </a>
+<% end %>
+
+<script>
+    $("#4").css("background-color", "#FFD54F")
+    // 4번째 메뉴의 배경색 주는 코드
+</script>

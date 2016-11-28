@@ -1,0 +1,202 @@
+// Place all the styles related to the main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+a:link{
+    color: black;
+    text-decoration:none;
+}
+a:visited{
+    color: black;
+    text-decoration:none;
+}
+a:hover{
+    color: black;
+    text-decoration:none;
+}
+a:active{
+    color: black;
+    text-decoration:none;
+}
+#button1{
+    font-weight: bold;
+    color: #FFAB00;
+    background-color: #424242; 
+}
+#button1:hover{
+    
+}
+#button1:active{
+    
+}
+#button1:visited{
+    
+}
+
+.textlink{
+    font-size:1vw;
+    font-weight: 700;
+    color:#424242 !important;
+}
+    
+.textlink:hover{
+    text-decoration:none;
+}
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: rgba(229, 103, 23, 0.8);
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
+    outline: 0 none;
+}
+
+// 라벨 css
+.label-pc {
+        display:inline;
+        font-family:"jeju gothic", sans-serif;
+        padding: .4em .6em .3em;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+// 좌측 메뉴
+#menu_left li:hover {
+    background-color: rgba(255,196,0,.5);
+}
+
+#menu_left li:clicked{
+   background-color: #FFE096;  
+}
+
+
+// 검색 css
+#search-pane_pc{
+    width: 660px !important;
+    padding: 0px !important;
+    border-bottom: 3px solid #dfdfdf;
+    left: 9px;
+    margin-bottom: 9px;
+}
+
+#searchPane1_pc{
+    width: 600px;
+    border-top-right-radius:6px !important;
+    border-bottom-right-radius:6px !important;
+    border-style:none;
+}
+
+#searchButton_pc{
+    width:30px;
+    padding:0;
+    border-radius:0vw;
+    border-style:none;
+    background-image:url("/assets/grey.png");
+    background-size:20px;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+    
+.form-control{
+    box-shadow:none!important;
+}
+
+// 리뷰목록 섹터
+// #reviewSector:clicked{
+//     background-color: #FFE096;
+// }
+
+#reviewSector:hover{
+    // background-color: #FEECC2;
+    background-color: #F9F9F9;
+    // border-style: none;
+    // border: 1px solid #dfdfdf;
+    // border-bottom: 1px solid #dfdfdf!important;
+    //#F9F9F9 네이버카페 배경색상
+}
+
+// 개인정보 메뉴
+ul#menu_pc li{
+    display: inline;
+}
+
+// 본문 글
+.content_text {
+    font-size: 14px !important;
+    color: #424242 !important;
+}
+
+
+// 바차트 백그라운드 컬러
+/*학점*/
+.grade-best {
+    background-color: #8AC054;
+}
+.grade-soso {
+    background-color: #9ED36A;
+}
+.grade-bad {
+    background-color: #B4E080;
+}
+/*편안함*/
+.comforty-best {
+    background-color: #E8563F;
+}
+.comforty-soso {
+    background-color: #FB6D51;
+}
+.comforty-bad {
+    background-color: #FC8370;
+}
+/*강의력*/
+.study-best {
+    background-color: #4B89DA;
+}
+.study-soso {
+    background-color: #5e9cea;
+}
+.study-bad {
+    background-color: #73b1f4;
+}
+.progress-bar {
+    padding-top: 6px;
+}
+
+// 좋아요 싫어요
+.glyphicon-thumbs-down{
+    color: #00B9FF !important;
+    font-size: 16px !important;
+    }
+    
+#thumbs-up-icon{
+    color: #ff0000 !important;
+    font-size: 16px;
+}
+
+// 코멘트 갯수여부
+#comment_icon_pc{
+    color:#ff479c ;
+}
+#comment_icon2_pc{
+    color:#aaaaaa ;
+
+}
+
+.label-star{
+    background-color:#FFD54F !important;
+}
+
+// 모달
+.modal-dialog{
+        position: relative;
+        margin-top: 7vw !important;
+        width: 90vw;
+        height: 75vh;
+    }
+    
+.btn-primary{
+    border-color: white !important;
+}

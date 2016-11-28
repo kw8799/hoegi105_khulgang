@@ -1,0 +1,238 @@
+<style>
+    .rating-xs{
+        font-size: 24px;
+    }
+    .star-rating{
+        display: inline;
+    }
+    .rating-container{
+        margin-top: 6px;
+    }
+    .btn-major{
+      display:inline; 
+      font-size:15px; 
+      width:200px; 
+      height:35px; 
+      background-color:white; 
+      color:#424242;
+      border-color: #FFD54F;
+      border-style: solid;
+      border-radius: 5px;
+    }
+</style>
+
+<div class="lec_list" style="border-bottom:1px solid #E0E0E0;">
+    <!--<div class="dropdown1" style="width: 200px; display:inline;">-->
+    <!--      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:150px">-->
+    <!--        <span class="college">단과대학</span>-->
+    <!--        <span class="caret"></span>-->
+    <!--      </button>-->
+    <!--      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
+    <!--        <li><a href="#">호관대</a></li>-->
+    <!--        <li><a href="#">경영대</a></li>-->
+    <!--        <li><a href="#">이과대</a></li>-->
+    <!--        <li role="separator" class="divider"></li>-->
+    <!--        <li class="huma"><a href="#">후마니타스칼리지</a></li>-->
+    <!--      </ul>-->
+          <!--dropdown-menu 여기말고어디있지?-->
+    <!--</div>-->
+    
+    <form action="/main/major_lecture" method="post">
+        <div style="margin-left:30px; margin-top:10px; margin-bottom:10px">
+            <button class="btn-major" value="001" name="major_pc" style="
+            <% if @major_code == "001" %>
+              background-color: #FFD54F;
+            <% else %>
+            <% end %>
+            ">
+                 관광학과 </button>
+            <button class="btn-major" value="002" name="major_pc" style="
+            <% if @major_code == "002" %>
+              background-color: #FFD54F;
+            <% else %>
+            <% end %>
+            ">
+                문화관광콘텐츠학과</button>
+            <button class="btn-major" value="003" name="major_pc" style="
+            <% if @major_code == "003" %>
+              background-color: #FFD54F;
+            <% else %>  
+            <% end %>
+            ">
+                외식경영학과</button>
+           <p></p>
+           <button class="btn-major" value="004" name="major_pc" style="
+            <% if @major_code == "004" %>
+              background-color: #FFD54F;
+            <% else %>  
+            <% end %>
+            ">
+              조리·서비스경영학과</button>
+            <button class="btn-major" value="005" name="major_pc" style="
+            <% if @major_code == "005" %>
+              background-color: #FFD54F;
+            <% else %>  
+            <% end %>
+            ">
+                컨벤션경영학과</button>
+            <button class="btn-major" value="006" name="major_pc" style="
+            <% if @major_code == "006" %>
+              background-color: #FFD54F;
+            <% else %>  
+            <% end %>
+            ">
+                호텔경영학과</button>
+        </div>
+    </form>
+    
+</div>
+
+<% if @lecture!=nil %>
+  
+  <% page_t = (@lecture.length-1)/10 + 1 %>
+  
+  <% if params[:page]==nil %>
+    <% page_c = 1 %>
+  <% else %>
+    <% page_c = params[:page].to_i %>
+  <% end %>
+  <% page_s = ((page_c-1)/10)*10 + 1 %>
+  <% page_e = (((page_c-1)/10)*10 + 1) + 9 %>
+  <% if page_e > page_t %>
+    <% page_e = page_t %>
+  <% end %>
+  <% if page_c > page_t %>
+    <% page_c = page_t %>
+  <% end %>
+
+<!--강의목록이 표시되는 곳-->
+
+  <% @lecture.slice((page_c-1)*10, 10).each do |hot| %>
+      <a href="/main/lecture_review/<%= Classofhot.find(hot.classofhot_id).id %>">
+      <div id="reviewSector" style="display: block; padding: 10px; height: 100px; width: 100%; border-top: 1px solid #dfdfdf;">
+          
+          <!--강의명과 교수명 파트-->
+          <div style="font-size: 20px; font-weight: bold; width: 100%; color:#1A237E;">
+              <%= Classofhot.find(hot.classofhot_id).lecture_title %>
+              <span style="font-size:15px; color:#757575"><%= Classofhot.find(hot.classofhot_id).professor_name %></span>
+          </div>
+          
+          <div style="float: left; height: 60px; width: 100%; padding:5px; padding-top:15px">
+            
+            <div style="position: relative; clear: both; height: 30px; width: 650px; font-size: 16px; bottom: 5px;">
+              <div style="float:left; display:inline; margin-top:-10px">
+                <!--작성자가 매긴 별점-->
+                <input style=" display: inline;" id="com-star" class="rating form-control hide"  data-size="xs" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="0.5" data-readonly="true" value="
+                    <% totalStar = 0 %>
+                    <% review = Review.where('classofhot_id = ?', Classofhot.find(hot.classofhot_id).id) %>
+                    <% review.each do |r| %>
+                        <% totalStar += r.eval_star %>
+                    <% end %>
+                    <% if review.count != 0 %>
+                        <%= (totalStar/review.count).round(1) %>
+                    <% else %>
+                        0
+                    <% end %>
+                ">
+              </div>
+              <div style="float: right">
+                
+                <!--학점 잘 주니-->
+                <% sumofgrade = Classofhot.find(hot.classofhot_id).reviews.all.sum :eval_grade
+                if sumofgrade == 0
+                    @representgrade = nil
+                else
+                    @representgrade = sumofgrade / Classofhot.find(hot.classofhot_id).reviews.count
+                end %>
+                <!--편한하니-->
+                <% sumofeasy = Classofhot.find(hot.classofhot_id).reviews.all.sum :eval_easy
+                if sumofeasy == 0
+                    @representeasy = nil
+                else
+                    @representeasy = sumofeasy / Classofhot.find(hot.classofhot_id).reviews.count
+                end %>
+                <!--배우는게 있니-->
+                <% sumofacademic = Classofhot.find(hot.classofhot_id).reviews.all.sum :eval_academic
+                if sumofacademic == 0
+                    @representacademic = nil
+                else
+                    @representacademic = sumofacademic / Classofhot.find(hot.classofhot_id).reviews.count
+                end %>
+                
+                <% if @representacademic == nil || @representeasy == nil || @representgrade == nil %>
+        
+                  <span style="font-size:13px; color:#616161; padding-right:10px;">#평가없음</span>
+                
+                <% else %>
+                
+                  <% if @representgrade >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#학점느님</span>
+                  <% elsif @representgrade >= 1.66 and @representgrade < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#원칙대로</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#학점폭격</span>
+                  <% end %>
+                
+                  <% if @representeasy >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#편해요</span>
+                  <% elsif @representeasy >= 1.66 and @representeasy < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#버틸만함</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#개피곤</span>
+                  <% end %>
+                
+                  <% if @representacademic >= 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#인생강의</span>
+                  <% elsif @representacademic >= 1.66 and @representacademic < 2.32 %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#평타강의</span>
+                  <% else %>
+                      <span style="font-size:14px; color:#616161; padding-right:10px;">#쓰레기수업</span>
+                  <% end %>
+                    
+                <% end %>
+              </div>
+            </div>
+            <div style="float:right; margin-top:-10px; bottom:10px; ">
+              <span style="font-size:13px; color:#616161; padding-right:10px;">
+                <%= Classofhot.find(hot.classofhot_id).reviews.count %>명이 평가에 참여했습니다.
+              </span>
+              <span id="comment_icon_pc" style="top:4px; padding-top: 2px;">
+                <% if Classofhot.find(hot.classofhot_id).reviews.where.not(:eval_star => nil).exists?(:review_writer => @useremail, :review_content => nil) %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #cccccc; top: 4px;"></span>
+                  <span style="font-size:14px; color: #cccccc;"><%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% elsif Classofhot.find(hot.classofhot_id).reviews.where.not(:review_content => nil).exists?(:review_writer => @useremail) %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #FFD54F; top: 4px;"></span>
+                  <span style="font-size:14px; color: #FFD54F;"><%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% else %>
+                  <span class="glyphicon glyphicon-comment" align="center" style="color: #cccccc; top: 4px;"></span>
+                  <span style="font-size:14px; color: #cccccc;"><%= Classofhot.find(hot.classofhot_id).reviews.where.not(review_content: nil).count %></span> <!--리뷰(댓글) 갯수-->
+                <% end %>
+              </span>
+              
+            </div>
+          </div>
+      </div>
+      </a>
+  <% end %>
+
+<!--강의목록 끝-->
+  
+  <div style="border-top:1px solid #dfdfdf; padding: 20px; text-align: center;">
+    <% while page_s <= page_e %>
+      <% if page_s==page_c %>
+        <a style="font-size: 16px; font-weight: bold;"href = "/main/major_lecture?major_pc=<%= params[:major_pc] %>&page=<%= page_s %>"><%= page_s %></a>
+      <% else %>
+        <a style="font-size: 16px; color:gray;" href = "/main/major_lecture?major_pc=<%= params[:major_pc] %>&page=<%= page_s %>"><%= page_s %></a>
+      <% end %>
+      &nbsp;
+      <% page_s = page_s + 1 %>
+      &nbsp;
+    <% end %>
+  </div>
+
+<% end %>
+
+<script>
+    $("#3").css("background-color", "#FFD54F")
+    // 3번째 메뉴의 배경색 주는 코드
+</script>

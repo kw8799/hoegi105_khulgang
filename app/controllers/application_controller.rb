@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
 
     protected
     
-  def after_sign_in_path_for(resource)
-    '/hoegi105/mainpage' #your path
+  def after_sign_in_path_for(resource) #your path
+    '/main/detector'
   end
   
   def after_sign_out_path_for(resource_or_scope)
-    '/login'
+    '/main/index'
   end
   
   def configure_permitted_parameters
@@ -25,4 +25,5 @@ class ApplicationController < ActionController::Base
       redirect_to "/"
     end
   end
+
 end

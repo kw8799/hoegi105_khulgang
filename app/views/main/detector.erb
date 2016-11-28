@@ -1,0 +1,12 @@
+<script type="text/javascript">
+    var filter = "win16|win32|win64|mac|macintel";
+    if(navigator.platform){
+        if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+            location.href = "/hoegi105/mainpage"
+            // 0보다 작으면 모바일
+        } else {
+            location.href = "/main/home"
+            // 0보다 크면 PC
+        }
+    }
+</script>
