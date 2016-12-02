@@ -439,7 +439,7 @@
       </div>
       <form action="/hoegi105/review_process/<%= @lecture.id %>" method="post">
       <div class="modal-body">
-            <textarea style="height: 200px; width: 99%; resize: none;" name="reviewcontent" minlength="20"></textarea>
+            <textarea style="height: 200px; width: 99%; resize: none;" name="reviewcontent" required="required" minlength="20"></textarea>
                 <!--학점에 대한 태그-->
             
             <div class="btn-group" data-toggle="buttons">
@@ -685,7 +685,7 @@
       </div>
       <form action="/hoegi105/edit_review/<%= @mycontent_id %>" method="post">
       <div class="modal-body">
-            <textarea style="height: 200px; width: 99%; resize: none;" name="reviewcontent" minlength="20"><%= @mycontent_review %></textarea>
+            <textarea style="height: 200px; width: 99%; resize: none;" name="reviewcontent" required="required" minlength="20"><%= @mycontent_review %></textarea>
                 <!--학점에 대한 태그-->
             
             <div class="btn-group" data-toggle="buttons">
